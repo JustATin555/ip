@@ -6,7 +6,7 @@
 
 import java.util.Scanner;
 
-import storage.ItemList;
+import storage.Tasks;
 
 public class ForgetfulDave {
     // 3D-ASCII Art generated with https://patorjk.com/software/taag/
@@ -45,7 +45,7 @@ public class ForgetfulDave {
         Scanner scanner = new Scanner(System.in);
 
         // Initialize item storage
-        ItemList items = new ItemList();
+        Tasks tasks = new Tasks();
 
         /* Store current process state */
         boolean isRunning = true;
@@ -59,10 +59,10 @@ public class ForgetfulDave {
                     isRunning = false;
                     break;
                 case "list":
-                    printResponse(items.toString());
+                    printResponse(tasks.toString());
                     break;
                 default:
-                    items.add(input);
+                    tasks.store(input);
                     printResponse(String.format("added: %s", input));
             }
         }
