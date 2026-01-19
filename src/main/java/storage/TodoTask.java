@@ -16,6 +16,6 @@ public class TodoTask extends Task {
     }
 
     public String toString() {
-        return String.format("[D][%s] %s", isDone ? "X" : " ", description);
+        return String.format("[T][%s] %s", isDone ? "X" : " ", description);
     }
 }

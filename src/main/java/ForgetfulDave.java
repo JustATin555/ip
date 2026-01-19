@@ -3,13 +3,12 @@
  *
  * @author JustATin555
  */
-
 import java.util.Scanner;
 
-import storage.Tasks;
+import ui.Handler;
 
 public class ForgetfulDave {
-    // 3D-ASCII Art generated with https://patorjk.com/software/taag/
+    /* 3D-ASCII Art generated with https://patorjk.com/software/taag/ */
     private static final String DAVE_LOGO = """
              ________  ________  ___      ___ _______
             |\\   ___ \\|\\   __  \\|\\  \\    /  /|\\  ___ \\
@@ -44,41 +43,32 @@ public class ForgetfulDave {
         // Create scanner to read user input
         Scanner scanner = new Scanner(System.in);
 
-        // Initialize item storage
-        Tasks tasks = new Tasks();
+        // Initialize handler object
+        Handler handler = new Handler();
 
         /* Store current process state */
         boolean isRunning = true;
 
         // Main terminal loop
         while (isRunning) {
+            // Parse input
             String input = scanner.nextLine();
             String[] splitArgs = input.split(" ");
 
-            switch(splitArgs[0]) {
-                case "bye":
+            // Run relevant handler
+            String result = switch (splitArgs[0]) {
+                case "bye" -> {
                     isRunning = false;
-                    break;
-                case "list":
-                    printResponse(String
-                            .format("I think you have these tasks:\n%s\nMight have forgotten some though...",
-                                    tasks));
-                    break;
-                case "mark":
-                    printResponse(String.format("Checked this task off:\n   %s",
-                            tasks.setDone(Integer.parseInt(splitArgs[1]) - 1, true)));
-                    break;
-                case "unmark":
-                    printResponse(String.format("Erased the checkmark:\n   %s",
-                            tasks.setDone(Integer.parseInt(splitArgs[1]) - 1, false)));
-                    break;
-                default:
-                    tasks.store(input);
-                    printResponse(String.format("added: %s", input));
-            }
-        }
+                    yield "See you around!";
+                }
+                case "list" -> handler.list();
+                case "mark" -> handler.mark(splitArgs[1]);
+                case "unmark" -> handler.unmark(splitArgs[1]);
+                case "todo" -> handler.todo(input.substring(splitArgs[0].length() + 1));
+                default -> "Did you forget to start with a command? Don't worry, we all get forgetful sometimes.";
+            };
 
-        // Send goodbye message
-        printResponse("See you around!");
+            printResponse(result);
+        }
     }
 }

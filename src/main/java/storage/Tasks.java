@@ -14,19 +14,19 @@ public class Tasks {
      * Store a new todo task
      * @param description of the task
      */
-    public void store(String description) {
+    public Task store(String description) {
         tasks[size] = new TodoTask(description);
-        size++;
+        return tasks[size++];
     }
 
     /**
      * Mark a task done or not done
-     * @param pos of the task (zero-indexed)
+     * @param idx of the task (zero-indexed)
      * @param isDone whether the task is done or not
      * @return a string describing the task
      */
-    public Task setDone(int pos, boolean isDone) {
-        return tasks[pos].setDone(isDone);
+    public Task setDone(int idx, boolean isDone) {
+        return tasks[idx].setDone(isDone);
     }
 
     /**
