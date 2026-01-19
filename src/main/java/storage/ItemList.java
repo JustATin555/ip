@@ -10,10 +10,21 @@ public class ItemList {
      * @param item to add to the list
      */
     public void add(String item) {
-        // Store item
         items[size] = item;
-
-        // Increment size
         size++;
+    }
+
+    /**
+     * Provide a string representation of the list
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < size; i++) {
+            sb.append(String.format("%d. %s\n", i + 1, items[i]));
+        }
+
+        return sb.toString();
     }
 }

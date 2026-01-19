@@ -40,12 +40,11 @@ public class ForgetfulDave {
         printResponse("Hello! I'm Duke? Dan? Dave? Something like that...\nHow can I help?");
 
         // Create scanner to read user input
-        Scanner scan = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         // Main terminal loop
         while (true) {
-            // Read user input
-            String input = scan.nextLine();
+            String input = scanner.nextLine();
 
             // Stop on "bye"
             if (input.equals("bye")) break;
