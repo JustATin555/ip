@@ -65,4 +65,17 @@ public class Handler {
         return String.format("Alright, we'll both try to remember this task:\n   %s",
                 tasks.store(description));
     }
+
+    /**
+     * Create a deadline task
+     * @param taskInfo the description and deadline of the task
+     */
+    public String deadline(String taskInfo) {
+        String[] splitArgs = taskInfo.split(" /by ");
+
+        if (splitArgs.length != 2) return "Hmmm, that doesn't seem like a deadline task.";
+
+        return String.format("Alright, we'll both try to remember this task:\n   %s",
+                tasks.store(splitArgs[0], splitArgs[1]));
+    }
 }

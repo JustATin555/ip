@@ -13,9 +13,21 @@ public class Tasks {
     /**
      * Store a new todo task
      * @param description of the task
+     * @return the new task
      */
     public Task store(String description) {
         tasks[size] = new TodoTask(description);
+        return tasks[size++];
+    }
+
+    /**
+     * Store a new deadline task
+     * @param description of the task
+     * @param deadline of the task
+     * @return the new task
+     */
+    public Task store(String description, String deadline) {
+        tasks[size] = new DeadlineTask(description, deadline);
         return tasks[size++];
     }
 

@@ -65,6 +65,7 @@ public class ForgetfulDave {
                 case "mark" -> handler.mark(splitArgs[1]);
                 case "unmark" -> handler.unmark(splitArgs[1]);
                 case "todo" -> handler.todo(input.substring(splitArgs[0].length() + 1));
+                case "deadline" -> handler.deadline(input.substring(splitArgs[0].length() + 1));
                 default -> "Did you forget to start with a command? Don't worry, we all get forgetful sometimes.";
             };
 

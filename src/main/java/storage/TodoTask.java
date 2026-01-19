@@ -1,5 +1,5 @@
 /**
- * A todo task without any date or time attached to it
+ * A task without any data or time attached to it
  *
  * @author JustATin555
  */
