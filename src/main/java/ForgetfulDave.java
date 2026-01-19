@@ -9,10 +9,11 @@ public class ForgetfulDave {
         + "    \\|_______|\\|__|\\|__|\\|__|/       \\|_______|\n";
 
     /**
-     * Print a message with a horizontal line underneath
+     * Print a message with a horizontal line above and below it
      * @param msg message to print
      */
-    private static void printWithLine(String msg) {
+    private static void printResponse(String msg) {
+        System.out.println("____________________________________________________________");
         System.out.println(msg);
         System.out.println("____________________________________________________________");
     }
@@ -26,9 +27,9 @@ public class ForgetfulDave {
         System.out.println(DAVE_LOGO);
 
         // Show welcome message
-        printWithLine("Hello! I'm Duke? Dan? Dave? Something like that...\nHow can I help?");
+        printResponse("Hello! I'm Duke? Dan? Dave? Something like that...\nHow can I help?");
 
         // Send goodbye message
-        printWithLine("See you around!");
+        printResponse("See you around!");
     }
 }
