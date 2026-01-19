@@ -64,8 +64,15 @@ public class ForgetfulDave {
                 case "list" -> handler.list();
                 case "mark" -> handler.mark(splitArgs[1]);
                 case "unmark" -> handler.unmark(splitArgs[1]);
-                case "todo" -> handler.todo(input.substring(splitArgs[0].length() + 1));
-                case "deadline" -> handler.deadline(input.substring(splitArgs[0].length() + 1));
+                case "todo" -> splitArgs[0].length() < input.length()
+                        ? handler.todo(input.substring(splitArgs[0].length() + 1))
+                        : "Got it, no todo to do.";
+                case "deadline" -> splitArgs[0].length() < input.length()
+                        ? handler.deadline(input.substring(splitArgs[0].length() + 1))
+                        : "Got it, no deadline whenever.";
+                case "event" -> splitArgs[0].length() < input.length()
+                        ? handler.event(input.substring(splitArgs[0].length() + 1)):
+                        "Got it, no event happening whenever.";
                 default -> "Did you forget to start with a command? Don't worry, we all get forgetful sometimes.";
             };
 

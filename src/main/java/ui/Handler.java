@@ -57,7 +57,7 @@ public class Handler {
     }
 
     /**
-     * Create a todo task
+     * Create a todo
      * @param description of the task
      * @return a description of the task
      */
@@ -67,15 +67,34 @@ public class Handler {
     }
 
     /**
-     * Create a deadline task
+     * Create a deadline
      * @param taskInfo the description and deadline of the task
+     * @return a description of the task
      */
     public String deadline(String taskInfo) {
         String[] splitArgs = taskInfo.split(" /by ");
 
-        if (splitArgs.length != 2) return "Hmmm, that doesn't seem like a deadline task.";
+        if (splitArgs.length != 2) return "Hmmm, that doesn't seem like a deadline.";
 
         return String.format("Alright, we'll both try to remember this task:\n   %s",
                 tasks.store(splitArgs[0], splitArgs[1]));
+    }
+
+    /**
+     * Create an event
+     * @param taskInfo the description, start and end of the task
+     * @return a description of the task
+     */
+    public String event(String taskInfo) {
+        String[] splitArgs = taskInfo.split(" /from ");
+
+        if (splitArgs.length != 2) return "Hmmm, that doesn't seem like an event.";
+
+        String[] splitTimes = splitArgs[1].split(" /to ");
+
+        if (splitTimes.length != 2) return "Hmmm, that doesn't seem like an event.";
+
+        return String.format("Alright, we'll both try to remember this task:\n   %s",
+                tasks.store(splitArgs[0], splitTimes[0], splitTimes[1]));
     }
 }

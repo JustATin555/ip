@@ -11,23 +11,35 @@ public class Tasks {
     private int size = 0;
 
     /**
-     * Store a new todo task
+     * Store a new todo
      * @param description of the task
      * @return the new task
      */
     public Task store(String description) {
-        tasks[size] = new TodoTask(description);
+        tasks[size] = new Todo(description);
         return tasks[size++];
     }
 
     /**
-     * Store a new deadline task
+     * Store a new deadline
      * @param description of the task
      * @param deadline of the task
      * @return the new task
      */
     public Task store(String description, String deadline) {
-        tasks[size] = new DeadlineTask(description, deadline);
+        tasks[size] = new Deadline(description, deadline);
+        return tasks[size++];
+    }
+
+    /**
+     * Store a new event
+     * @param description of the task
+     * @param start of the task
+     * @param end of the task
+     * @return the new task
+     */
+    public Task store(String description, String start, String end) {
+        tasks[size] = new Event(description, start, end);
         return tasks[size++];
     }
 

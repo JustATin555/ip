@@ -5,7 +5,7 @@
  */
 package storage;
 
-public class DeadlineTask extends Task {
+public class Deadline extends Task {
 
     /* The task's deadline */
     private final String deadline;
@@ -14,7 +14,7 @@ public class DeadlineTask extends Task {
      * Construct a new deadline task
      * @param description of the task
      */
-    public DeadlineTask(String description, String deadline) {
+    public Deadline(String description, String deadline) {
         super(description);
         this.deadline = deadline;
     }

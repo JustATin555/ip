@@ -5,13 +5,13 @@
  */
 package storage;
 
-public class TodoTask extends Task {
+public class Todo extends Task {
 
     /**
      * Construct a new todo task
      * @param description of the task
      */
-    public TodoTask(String description) {
+    public Todo(String description) {
         super(description);
     }
 
