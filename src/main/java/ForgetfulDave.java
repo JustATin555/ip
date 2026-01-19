@@ -1,4 +1,12 @@
+/**
+ * A personal assistant chatbot
+ *
+ * @author JustATin555
+ */
+
 import java.util.Scanner;
+
+import storage.ItemList;
 
 public class ForgetfulDave {
     // 3D-ASCII Art generated with https://patorjk.com/software/taag/
@@ -34,18 +42,29 @@ public class ForgetfulDave {
         printResponse("Hello! I'm Duke? Dan? Dave? Something like that...\nHow can I help?");
 
         // Create scanner to read user input
-        Scanner scan = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+
+        // Initialize item storage
+        ItemList items = new ItemList();
+
+        /* Store current process state */
+        boolean isRunning = true;
 
         // Main terminal loop
-        while (true) {
-            // Read user input
-            String input = scan.nextLine();
+        while (isRunning) {
+            String input = scanner.nextLine();
 
-            // Stop on "bye"
-            if (input.equals("bye")) break;
-
-            // Otherwise, echo the command
-            printResponse(input);
+            switch(input) {
+                case "bye":
+                    isRunning = false;
+                    break;
+                case "list":
+                    printResponse(items.toString());
+                    break;
+                default:
+                    items.add(input);
+                    printResponse(String.format("added: %s", input));
+            }
         }
 
         // Send goodbye message
