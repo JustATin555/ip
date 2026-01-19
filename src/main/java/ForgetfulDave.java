@@ -1,3 +1,9 @@
+/**
+ * A personal assistant chatbot
+ *
+ * @author JustATin555
+ */
+
 import java.util.Scanner;
 
 public class ForgetfulDave {
