@@ -1,3 +1,8 @@
+/**
+ * A store for the items in the chatbot's list
+ *
+ * @author JustATin555
+ */
 package storage;
 
 public class ItemList {
@@ -19,12 +24,12 @@ public class ItemList {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        String[] labelled = new String[size];
 
         for (int i = 0; i < size; i++) {
-            sb.append(String.format("%d. %s\n", i + 1, items[i]));
+            labelled[i] = String.format("%d. %s", i + 1, items[i]);
         }
 
-        return sb.toString();
+        return String.join("\n", labelled);
     }
 }
