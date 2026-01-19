@@ -11,22 +11,46 @@ public class Tasks {
     private int size = 0;
 
     /**
-     * Store a new task
+     * Store a new todo
      * @param description of the task
+     * @return the new task
      */
-    public void store(String description) {
-        tasks[size] = new Task(description);
-        size++;
+    public Task store(String description) {
+        tasks[size] = new Todo(description);
+        return tasks[size++];
+    }
+
+    /**
+     * Store a new deadline
+     * @param description of the task
+     * @param deadline of the task
+     * @return the new task
+     */
+    public Task store(String description, String deadline) {
+        tasks[size] = new Deadline(description, deadline);
+        return tasks[size++];
+    }
+
+    /**
+     * Store a new event
+     * @param description of the task
+     * @param start of the task
+     * @param end of the task
+     * @return the new task
+     */
+    public Task store(String description, String start, String end) {
+        tasks[size] = new Event(description, start, end);
+        return tasks[size++];
     }
 
     /**
      * Mark a task done or not done
-     * @param pos of the task (zero-indexed)
+     * @param idx of the task (zero-indexed)
      * @param isDone whether the task is done or not
      * @return a string describing the task
      */
-    public Task setDone(int pos, boolean isDone) {
-        return tasks[pos].setDone(isDone);
+    public Task setDone(int idx, boolean isDone) {
+        return tasks[idx].setDone(isDone);
     }
 
     /**
