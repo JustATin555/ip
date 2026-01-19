@@ -53,13 +53,24 @@ public class ForgetfulDave {
         // Main terminal loop
         while (isRunning) {
             String input = scanner.nextLine();
+            String[] splitArgs = input.split(" ");
 
-            switch(input) {
+            switch(splitArgs[0]) {
                 case "bye":
                     isRunning = false;
                     break;
                 case "list":
-                    printResponse(tasks.toString());
+                    printResponse(String
+                            .format("I think you have these tasks:\n%s\nMight have forgotten some though...",
+                                    tasks));
+                    break;
+                case "mark":
+                    printResponse(String.format("Checked this task off:\n   %s",
+                            tasks.setDone(Integer.parseInt(splitArgs[1]) - 1, true)));
+                    break;
+                case "unmark":
+                    printResponse(String.format("Erased the checkmark:\n   %s",
+                            tasks.setDone(Integer.parseInt(splitArgs[1]) - 1, false)));
                     break;
                 default:
                     tasks.store(input);
