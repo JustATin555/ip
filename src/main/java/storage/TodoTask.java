@@ -1,0 +1,21 @@
+/**
+ * A todo task without any date or time attached to it
+ *
+ * @author JustATin555
+ */
+package storage;
+
+public class TodoTask extends Task {
+
+    /**
+     * Construct a new todo task
+     * @param description of the task
+     */
+    public TodoTask(String description) {
+        super(description);
+    }
+
+    public String toString() {
+        return String.format("[D][%s] %s", isDone ? "X" : " ", description);
+    }
+}

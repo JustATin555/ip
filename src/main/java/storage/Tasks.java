@@ -11,11 +11,11 @@ public class Tasks {
     private int size = 0;
 
     /**
-     * Store a new task
+     * Store a new todo task
      * @param description of the task
      */
     public void store(String description) {
-        tasks[size] = new Task(description);
+        tasks[size] = new TodoTask(description);
         size++;
     }
 

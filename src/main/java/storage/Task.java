@@ -5,10 +5,10 @@
  */
 package storage;
 
-public class Task {
+public abstract class Task {
 
-    private final String description;
-    private boolean isDone = false;
+    protected final String description;
+    protected boolean isDone = false;
 
     /**
      * Construct a new (not done) task
@@ -32,7 +32,5 @@ public class Task {
      * Provide a string representation of the task
      */
     @Override
-    public String toString() {
-        return String.format("[%s] %s", isDone ? "X" : " ", description);
-    }
+    public abstract String toString();
 }
