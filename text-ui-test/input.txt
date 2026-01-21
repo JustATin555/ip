@@ -7,4 +7,7 @@ mark 1
 unmark
 unmark 1
 list
+delete
+delete 2
+list
 bye

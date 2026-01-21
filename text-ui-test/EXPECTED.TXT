@@ -23,31 +23,44 @@ Alright, we'll both try to remember this task:
    [D][ ] project meeting (from: Mon 2pm | to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
-I think you have these tasks:
+I only remember these tasks:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [D][ ] project meeting (from: Mon 2pm | to: 4pm)
 Might have forgotten some though...
 ____________________________________________________________
 ____________________________________________________________
-Which one should I mark?
+Which task should I mark?
 ____________________________________________________________
 ____________________________________________________________
 Checked this task off:
    [T][X] borrow book
 ____________________________________________________________
 ____________________________________________________________
-Which one should I unmark?
+Which task should I unmark?
 ____________________________________________________________
 ____________________________________________________________
 Erased the checkmark:
    [T][ ] borrow book
 ____________________________________________________________
 ____________________________________________________________
-I think you have these tasks:
+I only remember these tasks:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
 3. [D][ ] project meeting (from: Mon 2pm | to: 4pm)
+Might have forgotten some though...
+____________________________________________________________
+____________________________________________________________
+Which task should I delete?
+____________________________________________________________
+____________________________________________________________
+I won't remember this task anymore:
+   [D][ ] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+I only remember these tasks:
+1. [T][ ] borrow book
+2. [D][ ] project meeting (from: Mon 2pm | to: 4pm)
 Might have forgotten some though...
 ____________________________________________________________
 ____________________________________________________________
