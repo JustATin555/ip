@@ -5,10 +5,11 @@
  */
 package storage;
 
+import java.util.ArrayList;
+
 public class Tasks {
 
-    private final Task[] tasks = new Task[100];
-    private int size = 0;
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Store a new todo
@@ -16,8 +17,8 @@ public class Tasks {
      * @return the new task
      */
     public Task store(String description) {
-        tasks[size] = new Todo(description);
-        return tasks[size++];
+        tasks.add(new Todo(description));
+        return tasks.get(tasks.size() - 1);
     }
 
     /**
@@ -27,8 +28,8 @@ public class Tasks {
      * @return the new task
      */
     public Task store(String description, String deadline) {
-        tasks[size] = new Deadline(description, deadline);
-        return tasks[size++];
+        tasks.add(new Deadline(description, deadline));
+        return tasks.get(tasks.size() - 1);
     }
 
     /**
@@ -39,8 +40,8 @@ public class Tasks {
      * @return the new task
      */
     public Task store(String description, String start, String end) {
-        tasks[size] = new Event(description, start, end);
-        return tasks[size++];
+        tasks.add(new Event(description, start, end));
+        return tasks.get(tasks.size() - 1);
     }
 
     /**
@@ -50,7 +51,7 @@ public class Tasks {
      * @return a string describing the task
      */
     public Task setDone(int idx, boolean isDone) {
-        return tasks[idx].setDone(isDone);
+        return tasks.get(idx).setDone(isDone);
     }
 
     /**
@@ -58,10 +59,12 @@ public class Tasks {
      */
     @Override
     public String toString() {
+        int size = tasks.size();
+
         String[] labelled = new String[size];
 
         for (int i = 0; i < size; i++) {
-            labelled[i] = String.format("%d. %s", i + 1, tasks[i]);
+            labelled[i] = String.format("%d. %s", i + 1, tasks.get(i));
         }
 
         return String.join("\n", labelled);

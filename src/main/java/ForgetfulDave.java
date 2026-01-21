@@ -77,7 +77,7 @@ public class ForgetfulDave {
                 case "event" -> splitArgs[0].length() < input.length()
                         ? handler.event(input.substring(splitArgs[0].length() + 1)):
                         "Got it, no event happening whenever.";
-                default -> "Did you forget to start with a command? Don't worry, we all get forgetful sometimes.";
+                default -> "Did you forget to start with a command?\nDon't worry, we all get forgetful sometimes.";
             };
 
             printResponse(result);
