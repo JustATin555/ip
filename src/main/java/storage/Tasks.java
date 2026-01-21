@@ -48,12 +48,20 @@ public class Tasks {
      * Mark a task done or not done
      * @param idx of the task (zero-indexed)
      * @param isDone whether the task is done or not
-     * @return a string describing the task
+     * @return the updated task
      */
     public Task setDone(int idx, boolean isDone) {
         return tasks.get(idx).setDone(isDone);
     }
 
+    /**
+     * Remove a task
+     * @param idx of the task (zero-indexed)
+     * @return the deleted task
+     */
+    public Task remove(int idx) {
+        return tasks.remove(idx);
+    }
     /**
      * Provide a string representation of stored tasks
      */

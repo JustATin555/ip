@@ -64,10 +64,10 @@ public class ForgetfulDave {
                 case "list" -> handler.list();
                 case "mark" -> splitArgs.length > 1
                         ? handler.mark(splitArgs[1])
-                        : "Which one should I mark?";
+                        : "Which task should I mark?";
                 case "unmark" -> splitArgs.length > 1
                         ? handler.unmark(splitArgs[1])
-                        : "Which one should I unmark?";
+                        : "Which task should I unmark?";
                 case "todo" -> splitArgs[0].length() < input.length()
                         ? handler.todo(input.substring(splitArgs[0].length() + 1))
                         : "Got it, no todo to do.";
@@ -77,6 +77,9 @@ public class ForgetfulDave {
                 case "event" -> splitArgs[0].length() < input.length()
                         ? handler.event(input.substring(splitArgs[0].length() + 1)):
                         "Got it, no event happening whenever.";
+                case "delete" -> splitArgs.length > 1
+                        ? handler.delete(splitArgs[1])
+                        : "Which task should I delete?";
                 default -> "Did you forget to start with a command?\nDon't worry, we all get forgetful sometimes.";
             };
 

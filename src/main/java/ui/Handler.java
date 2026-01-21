@@ -23,7 +23,7 @@ public class Handler {
      * @return a formatted list of tasks
      */
     public String list() {
-        return String.format("I think you have these tasks:\n%s\nMight have forgotten some though...", tasks);
+        return String.format("I only remember these tasks:\n%s\nMight have forgotten some though...", tasks);
     }
 
     /**
@@ -36,7 +36,7 @@ public class Handler {
             int idx = Integer.parseInt(stringIndex) - 1;
             return String.format("Checked this task off:\n   %s", tasks.setDone(idx, true));
         } catch (NumberFormatException e) {
-            return String.format("Ooh, I dunno which task you're talking about. What do you mean by \"%s?\"",
+            return String.format("Hmm, I dunno which task you're talking about. What do you mean by \"%s?\"",
                     stringIndex);
         }
     }
@@ -51,7 +51,7 @@ public class Handler {
             int idx = Integer.parseInt(stringIndex) - 1;
             return String.format("Erased the checkmark:\n   %s", tasks.setDone(idx, false));
         } catch (NumberFormatException e) {
-            return String.format("Ooh, I dunno which task you're talking about. What do you mean by \"%s?\"",
+            return String.format("Hmm, I dunno which task you're talking about. What do you mean by \"%s?\"",
                     stringIndex);
         }
     }
@@ -96,5 +96,20 @@ public class Handler {
 
         return String.format("Alright, we'll both try to remember this task:\n   %s",
                 tasks.store(splitArgs[0], splitTimes[0], splitTimes[1]));
+    }
+
+    /**
+     * Delete an existing task
+     * @param stringIndex index of the task as a string
+     * @return a description with the deleted task
+     */
+    public String delete(String stringIndex) {
+        try {
+            int idx = Integer.parseInt(stringIndex) - 1;
+            return String.format("I won't remember this task anymore:\n   %s", tasks.remove(idx));
+        } catch (NumberFormatException e) {
+            return String.format("Hmm, I dunno which task you're talking about. What do you mean by \"%s?\"?",
+                    stringIndex);
+        }
     }
 }
