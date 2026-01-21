@@ -62,8 +62,12 @@ public class ForgetfulDave {
                     yield "See you around!";
                 }
                 case "list" -> handler.list();
-                case "mark" -> handler.mark(splitArgs[1]);
-                case "unmark" -> handler.unmark(splitArgs[1]);
+                case "mark" -> splitArgs.length > 1
+                        ? handler.mark(splitArgs[1])
+                        : "Which one should I mark?";
+                case "unmark" -> splitArgs.length > 1
+                        ? handler.unmark(splitArgs[1])
+                        : "Which one should I unmark?";
                 case "todo" -> splitArgs[0].length() < input.length()
                         ? handler.todo(input.substring(splitArgs[0].length() + 1))
                         : "Got it, no todo to do.";
