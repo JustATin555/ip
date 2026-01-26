@@ -3,7 +3,7 @@
  *
  * @author JustATin555
  */
-package storage;
+package data;
 
 public class Deadline extends Task {
 
@@ -12,6 +12,7 @@ public class Deadline extends Task {
 
     /**
      * Construct a new deadline task
+     *
      * @param description of the task
      */
     public Deadline(String description, String deadline) {

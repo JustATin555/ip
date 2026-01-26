@@ -3,12 +3,13 @@
  *
  * @author JustATin555
  */
-package storage;
+package data;
 
 public class Todo extends Task {
 
     /**
      * Construct a new todo task
+     *
      * @param description of the task
      */
     public Todo(String description) {

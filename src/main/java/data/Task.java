@@ -3,7 +3,7 @@
  *
  * @author JustATin555
  */
-package storage;
+package data;
 
 public abstract class Task {
 
@@ -12,6 +12,7 @@ public abstract class Task {
 
     /**
      * Construct a new (not done) task
+     *
      * @param description of the task
      */
     public Task(String description) {
@@ -20,6 +21,7 @@ public abstract class Task {
 
     /**
      * Mark a task done or not done
+     *
      * @param isDone whether the task is done or not
      * @return a string describing the task
      */

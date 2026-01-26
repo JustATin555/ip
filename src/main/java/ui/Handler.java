@@ -5,7 +5,7 @@
  */
 package ui;
 
-import storage.Tasks;
+import data.Tasks;
 
 public class Handler {
 
@@ -20,6 +20,7 @@ public class Handler {
 
     /**
      * List all stored tasks
+     *
      * @return a formatted list of tasks
      */
     public String list() {
@@ -28,6 +29,7 @@ public class Handler {
 
     /**
      * Mark a task done
+     *
      * @param stringIndex index of the task as a string
      * @return a description with the marked task
      */
@@ -43,6 +45,7 @@ public class Handler {
 
     /**
      * Mark a task not done
+     *
      * @param stringIndex index of the task as a string
      * @return a description with the unmarked task
      */
@@ -58,6 +61,7 @@ public class Handler {
 
     /**
      * Create a todo
+     *
      * @param description of the task
      * @return a description of the task
      */
@@ -68,6 +72,7 @@ public class Handler {
 
     /**
      * Create a deadline
+     *
      * @param taskInfo the description and deadline of the task
      * @return a description of the task
      */
@@ -82,6 +87,7 @@ public class Handler {
 
     /**
      * Create an event
+     *
      * @param taskInfo the description, start and end of the task
      * @return a description of the task
      */
@@ -100,6 +106,7 @@ public class Handler {
 
     /**
      * Delete an existing task
+     *
      * @param stringIndex index of the task as a string
      * @return a description with the deleted task
      */

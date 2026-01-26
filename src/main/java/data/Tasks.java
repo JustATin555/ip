@@ -3,7 +3,7 @@
  *
  * @author JustATin555
  */
-package storage;
+package data;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,7 @@ public class Tasks {
 
     /**
      * Store a new todo
+     *
      * @param description of the task
      * @return the new task
      */
@@ -23,8 +24,9 @@ public class Tasks {
 
     /**
      * Store a new deadline
+     *
      * @param description of the task
-     * @param deadline of the task
+     * @param deadline    of the task
      * @return the new task
      */
     public Task store(String description, String deadline) {
@@ -34,9 +36,10 @@ public class Tasks {
 
     /**
      * Store a new event
+     *
      * @param description of the task
-     * @param start of the task
-     * @param end of the task
+     * @param start       of the task
+     * @param end         of the task
      * @return the new task
      */
     public Task store(String description, String start, String end) {
@@ -46,7 +49,8 @@ public class Tasks {
 
     /**
      * Mark a task done or not done
-     * @param idx of the task (zero-indexed)
+     *
+     * @param idx    of the task (zero-indexed)
      * @param isDone whether the task is done or not
      * @return the updated task
      */
@@ -56,12 +60,14 @@ public class Tasks {
 
     /**
      * Remove a task
+     *
      * @param idx of the task (zero-indexed)
      * @return the deleted task
      */
     public Task remove(int idx) {
         return tasks.remove(idx);
     }
+
     /**
      * Provide a string representation of stored tasks
      */

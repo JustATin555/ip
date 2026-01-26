@@ -1,7 +1,7 @@
 /**
  * A task that starts at a specific date or time and ends at a specific date or time
  */
-package storage;
+package data;
 
 public class Event extends Task {
 
@@ -11,6 +11,7 @@ public class Event extends Task {
 
     /**
      * Construct a new deadline task
+     *
      * @param description of the task
      */
     public Event(String description, String start, String end) {
