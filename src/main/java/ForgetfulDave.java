@@ -1,12 +1,14 @@
-/**
- * A personal assistant chatbot
- *
- * @author JustATin555
- */
 import java.util.Scanner;
 
 import ui.Handler;
 
+/**
+ * Represents a personal assistant chatbot.
+ * Runs in the command line.
+ *
+ * @author JustATin555
+ * @version 1.0
+ */
 public class ForgetfulDave {
     /* 3D-ASCII Art generated with https://patorjk.com/software/taag/ */
     private static final String DAVE_LOGO = """
@@ -20,8 +22,9 @@ public class ForgetfulDave {
             """;
 
     /**
-     * Print a message with a horizontal line above and below it
-     * @param msg message to print
+     * Prints a message with a horizontal line above and below it.
+     *
+     * @param msg Message to print.
      */
     private static void printResponse(String msg) {
         System.out.println("____________________________________________________________");
@@ -30,8 +33,9 @@ public class ForgetfulDave {
     }
 
     /**
-     * Main entry point
-     * @param args any terminal arguments for Forgetful Dave
+     * Runs the chatbot.
+     *
+     * @param args Terminal arguments for Forgetful Dave.
      */
     public static void main(String[] args) {
         // Show logo at startup
@@ -75,7 +79,7 @@ public class ForgetfulDave {
                         ? handler.deadline(input.substring(splitArgs[0].length() + 1))
                         : "Got it, no deadline whenever.";
                 case "event" -> splitArgs[0].length() < input.length()
-                        ? handler.event(input.substring(splitArgs[0].length() + 1)):
+                        ? handler.event(input.substring(splitArgs[0].length() + 1)) :
                         "Got it, no event happening whenever.";
                 case "delete" -> splitArgs.length > 1
                         ? handler.delete(splitArgs[1])

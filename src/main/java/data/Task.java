@@ -1,29 +1,33 @@
-/**
- * A singular task
- *
- * @author JustATin555
- */
 package data;
 
+/**
+ * Represents a singular task
+ *
+ * @author JustATin555
+ * @version 1.0
+ */
 public abstract class Task {
 
+    /** A string describing the task */
     protected final String description;
+
+    /** Whether the task is done or not */
     protected boolean isDone = false;
 
     /**
-     * Construct a new (not done) task
+     * Constructs a new (not done) task.
      *
-     * @param description of the task
+     * @param description A string describing the task.
      */
     public Task(String description) {
         this.description = description;
     }
 
     /**
-     * Mark a task done or not done
+     * Marks a task "done" or "not done".
      *
-     * @param isDone whether the task is done or not
-     * @return a string describing the task
+     * @param isDone Whether the task is done or not.
+     * @return A string describing the task.
      */
     public Task setDone(boolean isDone) {
         this.isDone = isDone;
@@ -31,7 +35,7 @@ public abstract class Task {
     }
 
     /**
-     * Provide a string representation of the task
+     * Provides a string representation of the task.
      */
     @Override
     public abstract String toString();

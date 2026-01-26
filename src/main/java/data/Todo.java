@@ -1,21 +1,23 @@
-/**
- * A task without any data or time attached to it
- *
- * @author JustATin555
- */
 package data;
 
+/**
+ * Represents a task without any data or time attached to it
+ *
+ * @author JustATin555
+ * @version 1.0
+ */
 public class Todo extends Task {
 
     /**
-     * Construct a new todo task
+     * Constructs a new todo.
      *
-     * @param description of the task
+     * @param description A string describing the todo.
      */
     public Todo(String description) {
         super(description);
     }
 
+    @Override
     public String toString() {
         return String.format("[T][%s] %s", isDone ? "X" : " ", description);
     }

@@ -1,21 +1,22 @@
-/**
- * The tasks tracked by the chatbot
- *
- * @author JustATin555
- */
 package data;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a series of tasks
+ *
+ * @author JustATin555
+ * @version 1.0
+ */
 public class Tasks {
 
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * Store a new todo
+     * Stores a new todo.
      *
-     * @param description of the task
-     * @return the new task
+     * @param description A string describing the task.
+     * @return The new task.
      */
     public Task store(String description) {
         tasks.add(new Todo(description));
@@ -23,11 +24,11 @@ public class Tasks {
     }
 
     /**
-     * Store a new deadline
+     * Stores a new deadline.
      *
-     * @param description of the task
-     * @param deadline    of the task
-     * @return the new task
+     * @param description A string describing the task.
+     * @param deadline    The task deadline.
+     * @return The new task.
      */
     public Task store(String description, String deadline) {
         tasks.add(new Deadline(description, deadline));
@@ -35,12 +36,12 @@ public class Tasks {
     }
 
     /**
-     * Store a new event
+     * Stores a new event.
      *
-     * @param description of the task
-     * @param start       of the task
-     * @param end         of the task
-     * @return the new task
+     * @param description A string describing the task.
+     * @param start       When the task starts.
+     * @param end         When the task ends.
+     * @return The new task.
      */
     public Task store(String description, String start, String end) {
         tasks.add(new Event(description, start, end));
@@ -48,28 +49,28 @@ public class Tasks {
     }
 
     /**
-     * Mark a task done or not done
+     * Marks a task "done" or "not done".
      *
-     * @param idx    of the task (zero-indexed)
-     * @param isDone whether the task is done or not
-     * @return the updated task
+     * @param idx    The task's index (zero-indexed).
+     * @param isDone Whether the task is done or not.
+     * @return the updated task.
      */
     public Task setDone(int idx, boolean isDone) {
         return tasks.get(idx).setDone(isDone);
     }
 
     /**
-     * Remove a task
+     * Removes a task.
      *
-     * @param idx of the task (zero-indexed)
-     * @return the deleted task
+     * @param idx The task's index (zero-indexed).
+     * @return The deleted task.
      */
     public Task remove(int idx) {
         return tasks.remove(idx);
     }
 
     /**
-     * Provide a string representation of stored tasks
+     * Provides a string representation of all stored tasks.
      */
     @Override
     public String toString() {

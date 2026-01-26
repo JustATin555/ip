@@ -1,37 +1,38 @@
-/**
- * The handlers bundled together
- *
- * @author JustATin555
- */
 package ui;
 
 import data.Tasks;
 
+/**
+ * A collection of command handlers bundled together.
+ *
+ * @author JustATin555
+ * @version 1.0
+ */
 public class Handler {
 
     private final Tasks tasks;
 
     /**
-     * Construct a new handler instance
+     * Constructs a new command handler
      */
     public Handler() {
         this.tasks = new Tasks();
     }
 
     /**
-     * List all stored tasks
+     * Returns a list of all stored tasks.
      *
-     * @return a formatted list of tasks
+     * @return A string describing the list of tasks.
      */
     public String list() {
         return String.format("I only remember these tasks:\n%s\nMight have forgotten some though...", tasks);
     }
 
     /**
-     * Mark a task done
+     * Marks a task as "done".
      *
-     * @param stringIndex index of the task as a string
-     * @return a description with the marked task
+     * @param stringIndex Index of the task as a string.
+     * @return A description of the marked task.
      */
     public String mark(String stringIndex) {
         try {
@@ -44,10 +45,10 @@ public class Handler {
     }
 
     /**
-     * Mark a task not done
+     * Marks a task as "not done".
      *
-     * @param stringIndex index of the task as a string
-     * @return a description with the unmarked task
+     * @param stringIndex Index of the task as a string.
+     * @return A description of the unmarked task.
      */
     public String unmark(String stringIndex) {
         try {
@@ -60,10 +61,10 @@ public class Handler {
     }
 
     /**
-     * Create a todo
+     * Creates a todo.
      *
-     * @param description of the task
-     * @return a description of the task
+     * @param description Description of the task as a string.
+     * @return A description of the task.
      */
     public String todo(String description) {
         return String.format("Alright, we'll both try to remember this task:\n   %s",
@@ -71,10 +72,10 @@ public class Handler {
     }
 
     /**
-     * Create a deadline
+     * Creates a deadline.
      *
-     * @param taskInfo the description and deadline of the task
-     * @return a description of the task
+     * @param taskInfo The description and deadline of the task as a single string.
+     * @return A description of the task.
      */
     public String deadline(String taskInfo) {
         String[] splitArgs = taskInfo.split(" /by ");
@@ -86,10 +87,10 @@ public class Handler {
     }
 
     /**
-     * Create an event
+     * Creates an event.
      *
-     * @param taskInfo the description, start and end of the task
-     * @return a description of the task
+     * @param taskInfo The description, start and end of the task as a single string.
+     * @return A description of the task.
      */
     public String event(String taskInfo) {
         String[] splitArgs = taskInfo.split(" /from ");
@@ -105,10 +106,10 @@ public class Handler {
     }
 
     /**
-     * Delete an existing task
+     * Deletes an existing task.
      *
-     * @param stringIndex index of the task as a string
-     * @return a description with the deleted task
+     * @param stringIndex index of the task as a string.
+     * @return a description of the deleted task.
      */
     public String delete(String stringIndex) {
         try {
