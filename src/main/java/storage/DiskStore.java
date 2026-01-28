@@ -3,8 +3,13 @@ package storage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 
-import data.Tasks;
+import data.Deadline;
+import data.Event;
+import data.Task;
+import data.Todo;
 
 /**
  * Represents a long-term storage medium.
@@ -30,40 +35,112 @@ public class DiskStore {
     }
 
     /**
-     * Load existing tasks from storage.
+     * Parses a given string into a task.
      *
-     * @throws IOException If the file cannot be read.
+     * @param taskString A string representing the task.
+     * @return A parsed task.
      */
-    public void load(Tasks tasks) throws IOException {
+    private static Task parseTask(String taskString) throws InvalidTaskParameterException {
+        if (taskString.isEmpty()) return new EmptyTask();
+        String[] params = taskString.split(" \\| ");
+
+        Task task = switch (params[0]) {
+            case "T" -> {
+                if (params.length != 3) throw new InvalidTaskParameterException();
+                yield new Todo(params[2]);
+            }
+            case "D" -> {
+                if (params.length != 4) throw new InvalidTaskParameterException();
+                yield new Deadline(params[2], params[3]);
+            }
+            case "E" -> {
+                if (params.length != 5) throw new InvalidTaskParameterException();
+                yield new Event(params[2], params[3], params[4]);
+            }
+            default -> throw new InvalidTaskParameterException();
+        };
+
+        if (params[1].equals("1")) task.setDone(true);
+
+        return task;
+    }
+
+    /**
+     * Prints an error message and stops the process.
+     */
+    private static void errorOut() {
+        System.out.println("""
+                ____________________________________________________________
+                I seem to have lost my notebook!
+                ____________________________________________________________""");
+        System.exit(404);
+    }
+
+    /**
+     * Loads existing tasks from storage.
+     *
+     * @return A list of parsed tasks.
+     */
+    public ArrayList<Task> load() {
 
         // TODO: Handle missing parent directories
 
+        ArrayList<Task> tasks = new ArrayList<>();
+
         try {
             if (Files.exists(filePath)) {
-                for (String line : Files.readAllLines(filePath)) {
-                    String[] params = line.split(" \\| ");
+                try {
+                    for (String line : Files.readAllLines(filePath)) {
+                        Task task = DiskStore.parseTask(line);
 
-                    int idx = switch (params[0]) {
-                        case "T" -> {
-                            if (params.length != 3) throw new InvalidTaskParameterException();
-                            yield tasks.store(params[2]);
-                        }
-                        case "D" -> {
-                            if (params.length != 4) throw new InvalidTaskParameterException();
-                            yield tasks.store(params[2], params[3]);
-                        }
-                        case "E" -> {
-                            if (params.length != 5) throw new InvalidTaskParameterException();
-                            yield tasks.store(params[2], params[3], params[4]);
-                        }
-                        default -> throw new InvalidTaskParameterException();
-                    };
-
-                    if (params[1].equals("1")) tasks.setDone(idx, true);
+                        if (!(task instanceof EmptyTask)) tasks.add(task);
+                    }
+                } catch (InvalidTaskParameterException exception) {
+                    Files.deleteIfExists(filePath);
+                    tasks.clear();
                 }
             }
-        } catch (InvalidTaskParameterException exception) {
+        } catch (IOException exception) {
+            errorOut();
+        }
+
+        return tasks;
+    }
+
+    /**
+     * Appends a new task to the file
+     *
+     * @param task The new task.
+     */
+    public void save(Task task) {
+        try {
+            Files.writeString(
+                    filePath,
+                    task.toStored() + "\n",
+                    StandardOpenOption.APPEND, StandardOpenOption.CREATE);
+        } catch (IOException exception) {
+            errorOut();
+        }
+    }
+
+    /**
+     * Overwrite existing storage with a list of tasks
+     *
+     * @param tasks The new tasks.
+     */
+    public void overwrite(ArrayList<Task> tasks) {
+        try {
             Files.deleteIfExists(filePath);
+            Files.writeString(
+                    filePath,
+                    String.join(
+                            "\n",
+                            tasks.stream()
+                                    .map(Task::toStored)
+                                    .toList()),
+                    StandardOpenOption.CREATE);
+        } catch (IOException exception) {
+            errorOut();
         }
     }
 }
@@ -72,4 +149,26 @@ public class DiskStore {
  * Represents an exception caused by invalid parameters in a storage file.
  */
 class InvalidTaskParameterException extends Exception {
-};
+}
+
+/**
+ * Represents an empty task to be filtered out
+ */
+class EmptyTask extends Task {
+    /**
+     * Constructs an empty (placeholder) task.
+     */
+    public EmptyTask() {
+        super("An empty task");
+    }
+
+    @Override
+    public String toString() {
+        return "???";
+    }
+
+    @Override
+    public String toStored() {
+        return "";
+    }
+}

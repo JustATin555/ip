@@ -1,6 +1,9 @@
 package data;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
+
+import storage.DiskStore;
 
 /**
  * Represents a series of tasks
@@ -10,7 +13,13 @@ import java.util.ArrayList;
  */
 public class Tasks {
 
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks;
+    private final DiskStore ds;
+
+    public Tasks(Path filePath) {
+        this.ds = new DiskStore(filePath);
+        this.tasks = ds.load();
+    }
 
     /**
      * Gets task stored at the given index
@@ -29,7 +38,9 @@ public class Tasks {
      * @return The new task.
      */
     public int store(String description) {
-        tasks.add(new Todo(description));
+        Todo task = new Todo(description);
+        tasks.add(task);
+        ds.save(task);
         return tasks.size() - 1;
     }
 
@@ -41,7 +52,9 @@ public class Tasks {
      * @return The new task.
      */
     public int store(String description, String deadline) {
-        tasks.add(new Deadline(description, deadline));
+        Deadline task = new Deadline(description, deadline);
+        tasks.add(task);
+        ds.save(task);
         return tasks.size() - 1;
     }
 
@@ -54,7 +67,9 @@ public class Tasks {
      * @return The new task.
      */
     public int store(String description, String start, String end) {
-        tasks.add(new Event(description, start, end));
+        Event task = new Event(description, start, end);
+        tasks.add(task);
+        ds.save(task);
         return tasks.size() - 1;
     }
 
@@ -66,7 +81,9 @@ public class Tasks {
      * @return the updated task.
      */
     public Task setDone(int idx, boolean isDone) {
-        return tasks.get(idx).setDone(isDone);
+        Task task = tasks.get(idx).setDone(isDone);
+        ds.overwrite(tasks);
+        return task;
     }
 
     /**
@@ -76,7 +93,9 @@ public class Tasks {
      * @return The deleted task.
      */
     public Task remove(int idx) {
-        return tasks.remove(idx);
+        Task task = tasks.remove(idx);
+        ds.overwrite(tasks);
+        return task;
     }
 
     /**

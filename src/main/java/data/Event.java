@@ -27,6 +27,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (from: %s | to: %s)", isDone ? "X" : " ", description, start, end);
+        return String.format("[E][%s] %s (from: %s | to: %s)", isDone ? "X" : " ", description, start, end);
+    }
+
+    @Override
+    public String toStored() {
+        return String.format("E | %s | %s | %s | %s", isDone ? "1" : "0", description, start, end);
     }
 }

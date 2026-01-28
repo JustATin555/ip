@@ -21,4 +21,9 @@ public class Todo extends Task {
     public String toString() {
         return String.format("[T][%s] %s", isDone ? "X" : " ", description);
     }
+
+    @Override
+    public String toStored() {
+        return String.format("T | %s | %s", isDone ? "1" : "0", description);
+    }
 }
