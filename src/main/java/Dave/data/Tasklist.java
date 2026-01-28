@@ -57,7 +57,7 @@ public class Tasklist {
     public Task store(String description, LocalDateTime deadline) {
         Deadline task = new Deadline(description, deadline);
         tasks.add(task);
-        return tasks.size() - 1;
+        return task;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Tasklist {
     public Task store(String description, LocalDateTime start, LocalDateTime end) {
         Event task = new Event(description, start, end);
         tasks.add(task);
-        return tasks.size() - 1;
+        return task;
     }
 
     /**
