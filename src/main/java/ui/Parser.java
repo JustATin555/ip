@@ -16,7 +16,11 @@ import commands.*;
  */
 public class Parser {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    /** A formatter for datetime inputted via CLI */
+    public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    /** A formatter for datetime outputted by chatbot */
+    public static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy @ HH:mm");
 
     private static ParsedCommand createInvalid(String warning) {
         return new ParsedCommand(
@@ -82,7 +86,7 @@ public class Parser {
                             splitArgs[0],
                             LocalDateTime.parse(
                                     splitArgs[1].substring(3),
-                                    dateTimeFormatter)));
+                                    dateTimeInputFormatter)));
         } catch (DateTimeParseException exception) {
             return createInvalid(String.format(
                     "Hmmm, I don't know when \"%s\" refers to.",
@@ -110,8 +114,8 @@ public class Parser {
                     CommandType.EVENT,
                     new EventCommand(
                             splitArgs[0],
-                            LocalDateTime.parse(splitArgs[1].substring(5), dateTimeFormatter),
-                            LocalDateTime.parse(splitArgs[2].substring(3), dateTimeFormatter)));
+                            LocalDateTime.parse(splitArgs[1].substring(5), dateTimeInputFormatter),
+                            LocalDateTime.parse(splitArgs[2].substring(3), dateTimeInputFormatter)));
         } catch (DateTimeParseException exception) {
             return createInvalid(
                     String.format(

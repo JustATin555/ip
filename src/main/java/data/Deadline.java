@@ -1,5 +1,7 @@
 package data;
 
+import static ui.Parser.dateTimeOutputFormatter;
+
 import java.time.LocalDateTime;
 
 /**
@@ -25,11 +27,17 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", isDone ? "X" : " ", description, deadline);
+        return String.format("[D][%s] %s (by: %s)",
+                isDone ? "X" : " ",
+                description,
+                deadline.format(dateTimeOutputFormatter));
     }
 
     @Override
     public String toStored() {
-        return String.format("D | %s | %s | %s", isDone ? "1" : "0", description, deadline);
+        return String.format("D | %s | %s | %s",
+                isDone ? "1" : "0",
+                description,
+                deadline);
     }
 }

@@ -1,5 +1,7 @@
 package data;
 
+import static ui.Parser.dateTimeOutputFormatter;
+
 import java.time.LocalDateTime;
 
 /**
@@ -29,11 +31,19 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E][%s] %s (from: %s | to: %s)", isDone ? "X" : " ", description, start, end);
+        return String.format("[E][%s] %s (from: %s | to: %s)",
+                isDone ? "X" : " ",
+                description,
+                start.format(dateTimeOutputFormatter),
+                end.format(dateTimeOutputFormatter));
     }
 
     @Override
     public String toStored() {
-        return String.format("E | %s | %s | %s | %s", isDone ? "1" : "0", description, start, end);
+        return String.format("E | %s | %s | %s | %s",
+                isDone ? "1" : "0",
+                description,
+                start,
+                end);
     }
 }
