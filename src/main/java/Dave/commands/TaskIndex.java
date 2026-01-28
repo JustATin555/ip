@@ -1,4 +1,4 @@
-package commands;
+package Dave.commands;
 
 /**
  * Stores the index specified in a command.

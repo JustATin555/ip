@@ -1,7 +1,7 @@
-package data;
+package Dave.data;
 
 /**
- * Represents a task without any data or time attached to it
+ * Represents a task without any Dave.data or time attached to it
  *
  * @author JustATin555
  * @version 1.0

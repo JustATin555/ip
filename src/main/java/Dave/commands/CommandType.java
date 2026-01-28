@@ -1,4 +1,4 @@
-package commands;
+package Dave.commands;
 
 public enum CommandType {
     INVALID,

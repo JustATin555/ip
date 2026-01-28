@@ -1,13 +1,13 @@
-package ui;
+package Dave.ui;
 
-import static ui.Helpers.prettyPrint;
-import static ui.Helpers.printWelcome;
+import static Dave.ui.Helpers.prettyPrint;
+import static Dave.ui.Helpers.printWelcome;
 
 import java.nio.file.Path;
 import java.util.Scanner;
 
-import commands.*;
-import data.Tasklist;
+import Dave.commands.*;
+import Dave.data.Tasklist;
 
 /**
  * Represents a personal assistant chatbot.
@@ -24,7 +24,7 @@ public class ForgetfulDave {
     /**
      * Constructs a new chatbot instance.
      *
-     * @param filePath A path to the storage file.
+     * @param filePath A path to the Dave.storage file.
      */
     public ForgetfulDave(Path filePath) {
         tasklist = new Tasklist(filePath);

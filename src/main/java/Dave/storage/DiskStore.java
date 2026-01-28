@@ -1,4 +1,4 @@
-package storage;
+package Dave.storage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,13 +7,13 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import data.Deadline;
-import data.Event;
-import data.Task;
-import data.Todo;
+import Dave.data.Deadline;
+import Dave.data.Event;
+import Dave.data.Task;
+import Dave.data.Todo;
 
 /**
- * Represents a long-term storage medium.
+ * Represents a long-term Dave.storage medium.
  * Saves tasks to a file on the disk.
  *
  * @author JustATin555
@@ -21,15 +21,15 @@ import data.Todo;
  */
 public class DiskStore {
 
-    /** The location of the storage file */
+    /** The location of the Dave.storage file */
     private final Path filePath;
 
     /**
-     * Constructs a new disk storage instance.
-     * Requires a preset storage file location.
+     * Constructs a new disk Dave.storage instance.
+     * Requires a preset Dave.storage file location.
      * Will create new files / folders if they do not exist yet.
      *
-     * @param filePath The location of the storage file.
+     * @param filePath The location of the Dave.storage file.
      */
     public DiskStore(Path filePath) {
         this.filePath = filePath;
@@ -83,7 +83,7 @@ public class DiskStore {
     }
 
     /**
-     * Loads existing tasks from storage.
+     * Loads existing tasks from Dave.storage.
      *
      * @return A list of parsed tasks.
      */
@@ -130,7 +130,7 @@ public class DiskStore {
     }
 
     /**
-     * Overwrite existing storage with a list of tasks
+     * Overwrite existing Dave.storage with a list of tasks
      *
      * @param tasks The new tasks.
      */
@@ -152,7 +152,7 @@ public class DiskStore {
 }
 
 /**
- * Represents an exception caused by invalid parameters in a storage file.
+ * Represents an exception caused by invalid parameters in a Dave.storage file.
  */
 class InvalidTaskParameterException extends Exception {
 }

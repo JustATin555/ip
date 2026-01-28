@@ -1,4 +1,4 @@
-package commands;
+package Dave.commands;
 
 import static java.lang.Integer.parseInt;
 
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * A parser that converts string commands into valid commands for the handler.
+ * A parser that converts string Dave.commands into valid Dave.commands for the handler.
  *
  * @author JustATin555
  * @version 1.0
