@@ -67,8 +67,8 @@ public class Handler {
      * @return A description of the task.
      */
     public String todo(String description) {
-        return String.format("Alright, we'll both try to remember this task:\n   %s",
-                tasks.store(description));
+        int idx = tasks.store(description);
+        return String.format("Alright, we'll both try to remember this task:\n   %s", tasks.get(idx));
     }
 
     /**
@@ -82,8 +82,8 @@ public class Handler {
 
         if (splitArgs.length != 2) return "Hmmm, that doesn't seem like a deadline.";
 
-        return String.format("Alright, we'll both try to remember this task:\n   %s",
-                tasks.store(splitArgs[0], splitArgs[1]));
+        int idx = tasks.store(splitArgs[0], splitArgs[1]);
+        return String.format("Alright, we'll both try to remember this task:\n   %s", tasks.get(idx));
     }
 
     /**
@@ -101,8 +101,8 @@ public class Handler {
 
         if (splitTimes.length != 2) return "Hmmm, that doesn't seem like an event.";
 
-        return String.format("Alright, we'll both try to remember this task:\n   %s",
-                tasks.store(splitArgs[0], splitTimes[0], splitTimes[1]));
+        int idx = tasks.store(splitArgs[0], splitTimes[0], splitTimes[1]);
+        return String.format("Alright, we'll both try to remember this task:\n   %s", tasks.get(idx));
     }
 
     /**

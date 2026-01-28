@@ -13,14 +13,24 @@ public class Tasks {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
+     * Gets task stored at the given index
+     *
+     * @param idx The index of the stored task.
+     * @return The stored task.
+     */
+    public Task get(int idx) {
+        return tasks.get(idx);
+    }
+
+    /**
      * Stores a new todo.
      *
      * @param description A string describing the task.
      * @return The new task.
      */
-    public Task store(String description) {
+    public int store(String description) {
         tasks.add(new Todo(description));
-        return tasks.get(tasks.size() - 1);
+        return tasks.size() - 1;
     }
 
     /**
@@ -30,9 +40,9 @@ public class Tasks {
      * @param deadline    The task deadline.
      * @return The new task.
      */
-    public Task store(String description, String deadline) {
+    public int store(String description, String deadline) {
         tasks.add(new Deadline(description, deadline));
-        return tasks.get(tasks.size() - 1);
+        return tasks.size() - 1;
     }
 
     /**
@@ -43,9 +53,9 @@ public class Tasks {
      * @param end         When the task ends.
      * @return The new task.
      */
-    public Task store(String description, String start, String end) {
+    public int store(String description, String start, String end) {
         tasks.add(new Event(description, start, end));
-        return tasks.get(tasks.size() - 1);
+        return tasks.size() - 1;
     }
 
     /**
