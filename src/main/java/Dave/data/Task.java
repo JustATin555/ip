@@ -41,7 +41,7 @@ public abstract class Task {
     public abstract String toString();
 
     /**
-     * Provides a string representation of the task for Dave.storage as plaintext.
+     * Provides a string representation of the task for storage as plaintext.
      */
     public abstract String toStored();
 }

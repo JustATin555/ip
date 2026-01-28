@@ -15,11 +15,14 @@ import Dave.storage.DiskStore;
 public class Tasklist {
 
     private final ArrayList<Task> tasks;
-    private final DiskStore ds;
 
-    public Tasklist(Path filePath) {
-        this.ds = new DiskStore(filePath);
-        this.tasks = ds.load();
+    /**
+     * Constructs a new tasklist containing the given tasks.
+     *
+     * @param tasks The initial tasks in the tasklist.
+     */
+    public Tasklist(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -38,11 +41,10 @@ public class Tasklist {
      * @param description A string describing the task.
      * @return The new task.
      */
-    public int store(String description) {
+    public Task store(String description) {
         Todo task = new Todo(description);
         tasks.add(task);
-        ds.save(task);
-        return tasks.size() - 1;
+        return task;
     }
 
     /**
@@ -52,10 +54,9 @@ public class Tasklist {
      * @param deadline    The task deadline.
      * @return The new task.
      */
-    public int store(String description, LocalDateTime deadline) {
+    public Task store(String description, LocalDateTime deadline) {
         Deadline task = new Deadline(description, deadline);
         tasks.add(task);
-        ds.save(task);
         return tasks.size() - 1;
     }
 
@@ -67,10 +68,9 @@ public class Tasklist {
      * @param end         When the task ends.
      * @return The new task.
      */
-    public int store(String description, LocalDateTime start, LocalDateTime end) {
+    public Task store(String description, LocalDateTime start, LocalDateTime end) {
         Event task = new Event(description, start, end);
         tasks.add(task);
-        ds.save(task);
         return tasks.size() - 1;
     }
 
@@ -83,7 +83,6 @@ public class Tasklist {
      */
     public Task setDone(int idx, boolean isDone) {
         Task task = tasks.get(idx).setDone(isDone);
-        ds.overwrite(tasks);
         return task;
     }
 
@@ -95,7 +94,6 @@ public class Tasklist {
      */
     public Task remove(int idx) {
         Task task = tasks.remove(idx);
-        ds.overwrite(tasks);
         return task;
     }
 
@@ -112,5 +110,12 @@ public class Tasklist {
         }
 
         return String.join("\n", labelled);
+    }
+
+    /**
+     * Provides an array list for storage.
+     */
+    public ArrayList<Task> forStorage() {
+        return tasks;
     }
 }

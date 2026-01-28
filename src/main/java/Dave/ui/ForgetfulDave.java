@@ -1,13 +1,15 @@
 package Dave.ui;
 
-import static Dave.ui.Helpers.prettyPrint;
-import static Dave.ui.Helpers.printWelcome;
+import static Dave.ui.Display.prettyPrint;
+import static Dave.ui.Display.printWelcome;
 
 import java.nio.file.Path;
 import java.util.Scanner;
 
 import Dave.commands.*;
+import Dave.data.Task;
 import Dave.data.Tasklist;
+import Dave.storage.DiskStore;
 
 /**
  * Represents a personal assistant chatbot.
@@ -18,17 +20,19 @@ import Dave.data.Tasklist;
  */
 public class ForgetfulDave {
 
+    private final DiskStore diskStore;
     private final Tasklist tasklist;
     private final Scanner scanner;
 
     /**
      * Constructs a new chatbot instance.
      *
-     * @param filePath A path to the Dave.storage file.
+     * @param filePath A path to the storage file.
      */
     public ForgetfulDave(Path filePath) {
-        tasklist = new Tasklist(filePath);
         scanner = new Scanner(System.in);
+        diskStore = new DiskStore(filePath);
+        tasklist = new Tasklist(diskStore.load());
     }
 
     /**
@@ -57,40 +61,38 @@ public class ForgetfulDave {
                         %s
                         Might have forgotten some though...""",
                 tasklist));
-        case MARK -> prettyPrint(String.format("""
-                        Checked this task off:
-                           %s""",
-                tasklist.setDone(
-                        ((TaskIndex) command.args()).idx(),
-                        true)));
-        case UNMARK -> prettyPrint(String.format("""
-                        Erased this checkmark:
-                           %s""",
-                tasklist.setDone(
-                        ((TaskIndex) command.args()).idx(),
-                        false)));
-        case TODO -> prettyPrint(String.format("""
-                        Alright, we'll both try to remember this task:
-                           %s""",
-                tasklist.get(tasklist.store(((TodoCommand) command.args()).description()))));
+        case MARK -> {
+            Task task = tasklist.setDone(((TaskIndex) command.args()).idx(), true);
+            updateStore();
+            prettyPrint(String.format("Checked this task off:\n   %s", task));
+        }
+        case UNMARK -> {
+            Task task = tasklist.setDone(((TaskIndex) command.args()).idx(), false);
+            updateStore();
+            prettyPrint(String.format("Erased this checkmark:\n   %s", task));
+        }
+        case TODO -> {
+            Task task = tasklist.store(((TodoCommand) command.args()).description());
+            diskStore.save(task);
+            prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
+        }
         case DEADLINE -> {
             DeadlineCommand cmd = (DeadlineCommand) command.args();
-            prettyPrint(String.format("""
-                            Alright, we'll both try to remember this task:
-                               %s""",
-                    tasklist.get(tasklist.store(cmd.description(), cmd.deadline()))));
+            Task task = tasklist.store(cmd.description(), cmd.deadline());
+            diskStore.save(task);
+            prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
         }
         case EVENT -> {
             EventCommand cmd = (EventCommand) command.args();
-            prettyPrint(String.format("""
-                            Alright, we'll both try to remember this task:
-                               %s""",
-                    tasklist.get(tasklist.store(cmd.description(), cmd.start(), cmd.end()))));
+            Task task = tasklist.store(cmd.description(), cmd.start(), cmd.end());
+            diskStore.save(task);
+            prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
         }
-        case DELETE -> prettyPrint(String.format("""
-                        I won't remember this task anymore:
-                           %s""",
-                tasklist.remove(((TaskIndex) command.args()).idx())));
+        case DELETE -> {
+            Task task = tasklist.remove(((TaskIndex) command.args()).idx());
+            updateStore();
+            prettyPrint(String.format("I won't remember this task anymore:\n   %s", task));
+        }
         }
     }
 
@@ -105,5 +107,12 @@ public class ForgetfulDave {
             ParsedCommand command = Parser.parseCommand(input);
             handle(command);
         }
+    }
+
+    /**
+     * Sync stored data with current tasklist.
+     */
+    private void updateStore() {
+        diskStore.overwrite(tasklist.forStorage());
     }
 }
