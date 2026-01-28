@@ -1,6 +1,9 @@
 package ui;
 
+import java.io.IOException;
+
 import data.Tasks;
+import storage.DiskStore;
 
 /**
  * A collection of command handlers bundled together.
@@ -11,12 +14,21 @@ import data.Tasks;
 public class Handler {
 
     private final Tasks tasks;
+    private final DiskStore ds;
 
     /**
      * Constructs a new command handler
      */
-    public Handler() {
+    public Handler(DiskStore ds) {
         this.tasks = new Tasks();
+        this.ds = ds;
+
+        try {
+            ds.load(this.tasks);
+        } catch (IOException exception) {
+            System.out.println("I seem to have lost my notebook!");
+            System.exit(404);
+        }
     }
 
     /**

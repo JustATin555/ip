@@ -85,7 +85,6 @@ public class Tasks {
     @Override
     public String toString() {
         int size = tasks.size();
-
         String[] labelled = new String[size];
 
         for (int i = 0; i < size; i++) {

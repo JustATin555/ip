@@ -1,5 +1,7 @@
+import java.nio.file.Path;
 import java.util.Scanner;
 
+import storage.DiskStore;
 import ui.Handler;
 
 /**
@@ -44,11 +46,14 @@ public class ForgetfulDave {
         // Show welcome message
         printResponse("Hello! I'm Duke? Dan? Dave? Something like that...\nHow can I help?");
 
-        // Create scanner to read user input
-        Scanner scanner = new Scanner(System.in);
+        // Initialize disk storage
+        DiskStore ds = new DiskStore(Path.of("tasks.txt"));
 
         // Initialize handler object
-        Handler handler = new Handler();
+        Handler handler = new Handler(ds);
+
+        // Create scanner to read user input
+        Scanner scanner = new Scanner(System.in);
 
         /* Store current process state */
         boolean isRunning = true;
