@@ -1,3 +1,5 @@
+package ui;
+
 import static ui.Helpers.prettyPrint;
 import static ui.Helpers.printWelcome;
 
