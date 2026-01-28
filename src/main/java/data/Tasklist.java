@@ -10,14 +10,14 @@ import storage.DiskStore;
  * Represents a series of tasks
  *
  * @author JustATin555
- * @version 1.0
+ * @version 1.1
  */
-public class Tasks {
+public class Tasklist {
 
     private final ArrayList<Task> tasks;
     private final DiskStore ds;
 
-    public Tasks(Path filePath) {
+    public Tasklist(Path filePath) {
         this.ds = new DiskStore(filePath);
         this.tasks = ds.load();
     }

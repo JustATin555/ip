@@ -1,12 +1,10 @@
-package ui;
+package commands;
 
 import static java.lang.Integer.parseInt;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import commands.*;
 
 /**
  * A parser that converts string commands into valid commands for the handler.

@@ -1,6 +1,6 @@
 package data;
 
-import static ui.Parser.dateTimeOutputFormatter;
+import static commands.Parser.dateTimeOutputFormatter;
 
 import java.time.LocalDateTime;
 
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * Represents a task that needs to be done before a specific date or time
  *
  * @author JustATin555
- * @version 1.0
+ * @version 1.1
  */
 public class Deadline extends Task {
 

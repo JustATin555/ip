@@ -1,9 +1,11 @@
+import static ui.Helpers.prettyPrint;
+import static ui.Helpers.printWelcome;
+
 import java.nio.file.Path;
 import java.util.Scanner;
 
-import commands.ParsedCommand;
-import ui.Handler;
-import ui.Parser;
+import commands.*;
+import data.Tasklist;
 
 /**
  * Represents a personal assistant chatbot.
@@ -13,16 +15,19 @@ import ui.Parser;
  * @version 1.0
  */
 public class ForgetfulDave {
-    /* 3D-ASCII Art generated with https://patorjk.com/software/taag/ */
-    private static final String DAVE_LOGO = """
-             ________  ________  ___      ___ _______
-            |\\   ___ \\|\\   __  \\|\\  \\    /  /|\\  ___ \\
-            \\ \\  \\_|\\ \\ \\  \\|\\  \\ \\  \\  /  / | \\   __/|
-             \\ \\  \\ \\\\ \\ \\   __  \\ \\  \\/  / / \\ \\  \\_|/__
-              \\ \\  \\_\\\\ \\ \\  \\ \\  \\ \\    / /   \\ \\  \\_|\\ \\
-               \\ \\_______\\ \\__\\ \\__\\ \\__/ /     \\ \\_______\\
-                \\|_______|\\|__|\\|__|\\|__|/       \\|_______|
-            """;
+
+    private final Tasklist tasklist;
+    private final Scanner scanner;
+
+    /**
+     * Constructs a new chatbot instance.
+     *
+     * @param filePath A path to the storage file.
+     */
+    public ForgetfulDave(Path filePath) {
+        tasklist = new Tasklist(filePath);
+        scanner = new Scanner(System.in);
+    }
 
     /**
      * Runs the chatbot.
@@ -30,33 +35,73 @@ public class ForgetfulDave {
      * @param args Terminal arguments for Forgetful Dave.
      */
     public static void main(String[] args) {
-        // Show logo at startup
-        System.out.println(DAVE_LOGO);
+        new ForgetfulDave(Path.of("tasks.txt")).run();
+    }
 
-        // Show welcome message
-        System.out.println("""
-                ____________________________________________________________
-                Hello! I'm Duke? Dan? Dave? Something like that...
-                How can I help?
-                ____________________________________________________________""");
+    /**
+     * Handle a single command
+     *
+     * @param command The command to run.
+     */
+    private void handle(ParsedCommand command) {
+        switch (command.identifier()) {
+        case INVALID -> prettyPrint(((InvalidCommand) command.args()).warning());
+        case BYE -> {
+            prettyPrint("See you around!");
+            System.exit(0);
+        }
+        case LIST -> prettyPrint(String.format("""
+                        I only remember these tasks:
+                        %s
+                        Might have forgotten some though...""",
+                tasklist));
+        case MARK -> prettyPrint(String.format("""
+                        Checked this task off:
+                           %s""",
+                tasklist.setDone(
+                        ((TaskIndex) command.args()).idx(),
+                        true)));
+        case UNMARK -> prettyPrint(String.format("""
+                        Erased this checkmark:
+                           %s""",
+                tasklist.setDone(
+                        ((TaskIndex) command.args()).idx(),
+                        false)));
+        case TODO -> prettyPrint(String.format("""
+                        Alright, we'll both try to remember this task:
+                           %s""",
+                tasklist.get(tasklist.store(((TodoCommand) command.args()).description()))));
+        case DEADLINE -> {
+            DeadlineCommand cmd = (DeadlineCommand) command.args();
+            prettyPrint(String.format("""
+                            Alright, we'll both try to remember this task:
+                               %s""",
+                    tasklist.get(tasklist.store(cmd.description(), cmd.deadline()))));
+        }
+        case EVENT -> {
+            EventCommand cmd = (EventCommand) command.args();
+            prettyPrint(String.format("""
+                            Alright, we'll both try to remember this task:
+                               %s""",
+                    tasklist.get(tasklist.store(cmd.description(), cmd.start(), cmd.end()))));
+        }
+        case DELETE -> prettyPrint(String.format("""
+                        I won't remember this task anymore:
+                           %s""",
+                tasklist.remove(((TaskIndex) command.args()).idx())));
+        }
+    }
 
-        // Initialize parser and handler
-        Handler handler = new Handler(Path.of("tasks.txt"));
+    /**
+     * Runs a chatbot instance
+     */
+    public void run() {
+        printWelcome();
 
-        // Create scanner to read user input
-        Scanner scanner = new Scanner(System.in);
-
-        /* Store current process state */
-        boolean isRunning = true;
-
-        // Main terminal loop
-        while (isRunning) {
-            // Parse input
+        while (true) {
             String input = scanner.nextLine();
-
-            ParsedCommand cmd = Parser.parseCommand(input);
-
-            handler.handle(cmd);
+            ParsedCommand command = Parser.parseCommand(input);
+            handle(command);
         }
     }
 }
