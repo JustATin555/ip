@@ -42,7 +42,7 @@ public class Parser {
 
             return new ParsedCommand(
                     identifier,
-                    new TaskIndex(parseInt(splitArgs[1])));
+                    new TaskIndex(parseInt(splitArgs[1]) - 1));
         } catch (NumberFormatException exception) {
             return createInvalid(String.format(
                     "Hmmm, I don't know which index \"%s\" refers to.",
