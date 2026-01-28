@@ -2,6 +2,7 @@ package ui;
 
 import java.nio.file.Path;
 
+import commands.*;
 import data.Tasks;
 
 /**
@@ -22,104 +23,62 @@ public class Handler {
     }
 
     /**
-     * Returns a list of all stored tasks.
+     * Prints a message with a horizontal line above and below it.
      *
-     * @return A string describing the list of tasks.
+     * @param msg Message to print.
      */
-    public String list() {
-        return String.format("I only remember these tasks:\n%s\nMight have forgotten some though...", tasks);
+    private static void printResponse(String msg) {
+        System.out.println("____________________________________________________________");
+        System.out.println(msg);
+        System.out.println("____________________________________________________________");
     }
 
-    /**
-     * Marks a task as "done".
-     *
-     * @param stringIndex Index of the task as a string.
-     * @return A description of the marked task.
-     */
-    public String mark(String stringIndex) {
-        try {
-            int idx = Integer.parseInt(stringIndex) - 1;
-            return String.format("Checked this task off:\n   %s", tasks.setDone(idx, true));
-        } catch (NumberFormatException e) {
-            return String.format("Hmm, I dunno which task you're talking about. What do you mean by \"%s?\"",
-                    stringIndex);
+    public void handle(ParsedCommand command) {
+        switch (command.identifier()) {
+        case INVALID -> printResponse(((InvalidCommand) command.args()).warning());
+        case BYE -> {
+            printResponse("See you around!");
+            System.exit(0);
         }
-    }
-
-    /**
-     * Marks a task as "not done".
-     *
-     * @param stringIndex Index of the task as a string.
-     * @return A description of the unmarked task.
-     */
-    public String unmark(String stringIndex) {
-        try {
-            int idx = Integer.parseInt(stringIndex) - 1;
-            return String.format("Erased the checkmark:\n   %s", tasks.setDone(idx, false));
-        } catch (NumberFormatException e) {
-            return String.format("Hmm, I dunno which task you're talking about. What do you mean by \"%s?\"",
-                    stringIndex);
+        case LIST -> printResponse(String.format("""
+                        I only remember these tasks:
+                        %s
+                        Might have forgotten some though...""",
+                tasks));
+        case MARK -> printResponse(String.format("""
+                        Checked this task off:
+                           %s""",
+                tasks.setDone(
+                        ((TaskIndex) command.args()).idx(),
+                        true)));
+        case UNMARK -> printResponse(String.format("""
+                        Erased this checkmark:
+                           %s""",
+                tasks.setDone(
+                        ((TaskIndex) command.args()).idx(),
+                        false)));
+        case TODO -> printResponse(String.format("""
+                        Alright, we'll both try to remember this task:
+                           %s""",
+                tasks.get(tasks.store(((TodoCommand) command.args()).description()))));
+        case DEADLINE -> {
+            DeadlineCommand cmd = (DeadlineCommand) command.args();
+            printResponse(String.format("""
+                            Alright, we'll both try to remember this task:
+                               %s""",
+                    tasks.get(tasks.store(cmd.description(), cmd.deadline()))));
         }
-    }
-
-    /**
-     * Creates a todo.
-     *
-     * @param description Description of the task as a string.
-     * @return A description of the task.
-     */
-    public String todo(String description) {
-        int idx = tasks.store(description);
-        return String.format("Alright, we'll both try to remember this task:\n   %s", tasks.get(idx));
-    }
-
-    /**
-     * Creates a deadline.
-     *
-     * @param taskInfo The description and deadline of the task as a single string.
-     * @return A description of the task.
-     */
-    public String deadline(String taskInfo) {
-        String[] splitArgs = taskInfo.split(" /by ");
-
-        if (splitArgs.length != 2) return "Hmmm, that doesn't seem like a deadline.";
-
-        int idx = tasks.store(splitArgs[0], splitArgs[1]);
-        return String.format("Alright, we'll both try to remember this task:\n   %s", tasks.get(idx));
-    }
-
-    /**
-     * Creates an event.
-     *
-     * @param taskInfo The description, start and end of the task as a single string.
-     * @return A description of the task.
-     */
-    public String event(String taskInfo) {
-        String[] splitArgs = taskInfo.split(" /from ");
-
-        if (splitArgs.length != 2) return "Hmmm, that doesn't seem like an event.";
-
-        String[] splitTimes = splitArgs[1].split(" /to ");
-
-        if (splitTimes.length != 2) return "Hmmm, that doesn't seem like an event.";
-
-        int idx = tasks.store(splitArgs[0], splitTimes[0], splitTimes[1]);
-        return String.format("Alright, we'll both try to remember this task:\n   %s", tasks.get(idx));
-    }
-
-    /**
-     * Deletes an existing task.
-     *
-     * @param stringIndex index of the task as a string.
-     * @return a description of the deleted task.
-     */
-    public String delete(String stringIndex) {
-        try {
-            int idx = Integer.parseInt(stringIndex) - 1;
-            return String.format("I won't remember this task anymore:\n   %s", tasks.remove(idx));
-        } catch (NumberFormatException e) {
-            return String.format("Hmm, I dunno which task you're talking about. What do you mean by \"%s?\"?",
-                    stringIndex);
+        case EVENT -> {
+            EventCommand cmd = (EventCommand) command.args();
+            printResponse(String.format("""
+                            Alright, we'll both try to remember this task:
+                               %s""",
+                    tasks.get(tasks.store(cmd.description(), cmd.start(), cmd.end()))));
+        }
+        case DELETE -> printResponse(String.format("""
+                        I won't remember this task anymore:
+                           %s""",
+                tasks.remove(((TaskIndex) command.args()).idx())));
         }
     }
 }

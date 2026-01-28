@@ -1,6 +1,7 @@
 package data;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import storage.DiskStore;
@@ -51,7 +52,7 @@ public class Tasks {
      * @param deadline    The task deadline.
      * @return The new task.
      */
-    public int store(String description, String deadline) {
+    public int store(String description, LocalDateTime deadline) {
         Deadline task = new Deadline(description, deadline);
         tasks.add(task);
         ds.save(task);
@@ -66,7 +67,7 @@ public class Tasks {
      * @param end         When the task ends.
      * @return The new task.
      */
-    public int store(String description, String start, String end) {
+    public int store(String description, LocalDateTime start, LocalDateTime end) {
         Event task = new Event(description, start, end);
         tasks.add(task);
         ds.save(task);

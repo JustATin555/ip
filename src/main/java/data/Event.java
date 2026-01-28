@@ -1,5 +1,7 @@
 package data;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task that starts at a specific date or time and ends at a specific date or time
  *
@@ -9,17 +11,17 @@ package data;
 public class Event extends Task {
 
     /** When the task starts */
-    private final String start;
+    private final LocalDateTime start;
 
     /** When the task ends */
-    private final String end;
+    private final LocalDateTime end;
 
     /**
      * Constructs a new deadline task.
      *
      * @param description The task's deadline.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
         this.end = end;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import data.Deadline;
@@ -51,11 +52,16 @@ public class DiskStore {
             }
             case "D" -> {
                 if (params.length != 4) throw new InvalidTaskParameterException();
-                yield new Deadline(params[2], params[3]);
+                yield new Deadline(
+                        params[2],
+                        LocalDateTime.parse(params[3]));
             }
             case "E" -> {
                 if (params.length != 5) throw new InvalidTaskParameterException();
-                yield new Event(params[2], params[3], params[4]);
+                yield new Event(
+                        params[2],
+                        LocalDateTime.parse(params[3]),
+                        LocalDateTime.parse(params[4]));
             }
             default -> throw new InvalidTaskParameterException();
         };

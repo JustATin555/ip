@@ -1,5 +1,7 @@
 package data;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task that needs to be done before a specific date or time
  *
@@ -9,14 +11,14 @@ package data;
 public class Deadline extends Task {
 
     /** The task's deadline */
-    private final String deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructs a new deadline task.
      *
      * @param description A string describing the task.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
