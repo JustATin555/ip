@@ -1,10 +1,10 @@
 package Dave.data;
 
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
-import Dave.storage.DiskStore;
+import static Dave.ui.Display.listTasks;
 
 /**
  * Represents a series of tasks.
@@ -96,18 +96,23 @@ public class Tasklist {
     }
 
     /**
+     * Finds all tasks containing a string.
+     *
+     * @param searchString The string to find.
+     * @return A list of all matching tasks.
+     */
+    public List<Task> search(String searchString) {
+        return tasks.stream()
+                .filter(task -> task.descriptionHas(searchString))
+                .toList();
+    }
+
+    /**
      * Provides a string representation of all stored tasks.
      */
     @Override
     public String toString() {
-        int size = tasks.size();
-        String[] labelled = new String[size];
-
-        for (int i = 0; i < size; i++) {
-            labelled[i] = String.format("%d. %s", i + 1, tasks.get(i));
-        }
-
-        return String.join("\n", labelled);
+        return listTasks(tasks);
     }
 
     /**

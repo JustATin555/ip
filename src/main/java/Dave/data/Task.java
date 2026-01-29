@@ -35,6 +35,16 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the task has the given string in its description.
+     *
+     * @param searchString The string to check against.
+     * @return True if found, false otherwise.
+     */
+    public boolean descriptionHas(String searchString) {
+        return description.contains(searchString);
+    }
+
+    /**
      * Provides a string representation of the task.
      */
     @Override
