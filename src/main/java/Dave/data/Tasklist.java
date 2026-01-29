@@ -82,8 +82,7 @@ public class Tasklist {
      * @return the updated task.
      */
     public Task setDone(int idx, boolean isDone) {
-        Task task = tasks.get(idx).setDone(isDone);
-        return task;
+        return tasks.get(idx).setDone(isDone);
     }
 
     /**
@@ -93,8 +92,7 @@ public class Tasklist {
      * @return The deleted task.
      */
     public Task remove(int idx) {
-        Task task = tasks.remove(idx);
-        return task;
+        return tasks.remove(idx);
     }
 
     /**

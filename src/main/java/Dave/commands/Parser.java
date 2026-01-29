@@ -37,8 +37,9 @@ public class Parser {
         try {
             String[] splitArgs = input.split(" ");
 
-            if (splitArgs.length < 2) return createInvalid(
-                    "Hmmm, I don't know which index you're talking about.");
+            if (splitArgs.length < 2) {
+                return createInvalid("Hmmm, I don't know which index you're talking about.");
+            }
 
             return new ParsedCommand(
                     identifier,
@@ -69,7 +70,9 @@ public class Parser {
      * @return A deadline command, or an invalid command.
      */
     private static ParsedCommand parseDeadline(String input) {
-        if (input.length() < 9) return createInvalid("Got it, no deadline to remember.");
+        if (input.length() < 9) {
+            return createInvalid("Got it, no deadline to remember.");
+        }
 
         String[] splitArgs = input.substring(9).split(" /");
 
@@ -99,7 +102,9 @@ public class Parser {
      * @return An event command, or an invalid command.
      */
     private static ParsedCommand parseEvent(String input) {
-        if (input.length() < 6) return createInvalid("Got it, there's no event on.");
+        if (input.length() < 6) {
+            return createInvalid("Got it, there's no event on.");
+        }
 
         String[] splitArgs = input.substring(6).split(" /");
 
@@ -132,17 +137,17 @@ public class Parser {
         String[] splitArgs = input.split(" ");
 
         return switch (splitArgs[0]) {
-            case "bye" -> new ParsedCommand(CommandType.BYE, null);
-            case "list" -> new ParsedCommand(CommandType.LIST, null);
-            case "mark" -> parseIndex(input, CommandType.MARK);
-            case "unmark" -> parseIndex(input, CommandType.UNMARK);
-            case "todo" -> parseTodo(input);
-            case "deadline" -> parseDeadline(input);
-            case "event" -> parseEvent(input);
-            case "delete" -> parseIndex(input, CommandType.DELETE);
-            default -> createInvalid("""
-                    Did you forget to start with a command?
-                    Don't worry, we all get forgetful sometimes.""");
+        case "bye" -> new ParsedCommand(CommandType.BYE, null);
+        case "list" -> new ParsedCommand(CommandType.LIST, null);
+        case "mark" -> parseIndex(input, CommandType.MARK);
+        case "unmark" -> parseIndex(input, CommandType.UNMARK);
+        case "todo" -> parseTodo(input);
+        case "deadline" -> parseDeadline(input);
+        case "event" -> parseEvent(input);
+        case "delete" -> parseIndex(input, CommandType.DELETE);
+        default -> createInvalid("""
+                Did you forget to start with a command?
+                Don't worry, we all get forgetful sometimes.""");
         };
     }
 }
