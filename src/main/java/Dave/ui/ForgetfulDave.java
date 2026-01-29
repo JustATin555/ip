@@ -1,8 +1,5 @@
 package Dave.ui;
 
-import static Dave.ui.Display.prettyPrint;
-import static Dave.ui.Display.printWelcome;
-
 import java.nio.file.Path;
 import java.util.Scanner;
 
@@ -10,6 +7,8 @@ import Dave.commands.*;
 import Dave.data.Task;
 import Dave.data.Tasklist;
 import Dave.storage.DiskStore;
+
+import static Dave.ui.Display.*;
 
 /**
  * Represents a personal assistant chatbot.
@@ -92,6 +91,11 @@ public class ForgetfulDave {
             Task task = tasklist.remove(((TaskIndex) command.args()).idx());
             updateStore();
             prettyPrint(String.format("I won't remember this task anymore:\n   %s", task));
+        }
+        case FIND -> {
+            prettyPrint(String.format(
+                    "Are you talking about these tasks?\n%s",
+                    listTasks(tasklist.search(((FindCommand) command.args()).searchString()))));
         }
         }
     }

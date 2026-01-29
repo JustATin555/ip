@@ -1,5 +1,9 @@
 package Dave.ui;
 
+import Dave.data.Task;
+
+import java.util.List;
+
 /**
  * A collection of various UI helpers.
  *
@@ -43,5 +47,23 @@ public class Display {
         System.out.println("____________________________________________________________");
         System.out.println(msg);
         System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Combines a list of tasks into a single string.
+     *
+     * @param tasks A list of tasks.
+     * @return A string containing the tasks in order.
+     */
+    public static String listTasks(List<Task> tasks) {
+        int size = tasks.size();
+
+        String[] labelled = new String[size];
+
+        for (int i = 0; i < size; i++) {
+            labelled[i] = String.format("%d. %s", i + 1, tasks.get(i));
+        }
+
+        return String.join("\n", labelled);
     }
 }

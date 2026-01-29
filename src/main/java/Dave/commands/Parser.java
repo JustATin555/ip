@@ -123,6 +123,18 @@ public class Parser {
     }
 
     /**
+     * Parses a find command.
+     *
+     * @param input A string representing a find command.
+     * @return A find command, or an invalid command.
+     */
+    private static ParsedCommand parseFind(String input) {
+        return input.length() < 5
+                ? createInvalid("Got it, nothing to find.")
+                : new ParsedCommand(CommandType.FIND, new FindCommand(input.substring(5)));
+    }
+
+    /**
      * Parses a string into a valid or invalid command.
      *
      * @param input A string representing a command.
@@ -140,6 +152,7 @@ public class Parser {
             case "deadline" -> parseDeadline(input);
             case "event" -> parseEvent(input);
             case "delete" -> parseIndex(input, CommandType.DELETE);
+            case "find" -> parseFind(input);
             default -> createInvalid("""
                     Did you forget to start with a command?
                     Don't worry, we all get forgetful sometimes.""");

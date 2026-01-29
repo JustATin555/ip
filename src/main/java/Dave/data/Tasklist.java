@@ -1,10 +1,10 @@
 package Dave.data;
 
-import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
-import Dave.storage.DiskStore;
+import static Dave.ui.Display.listTasks;
 
 /**
  * Represents a series of tasks
@@ -82,8 +82,7 @@ public class Tasklist {
      * @return the updated task.
      */
     public Task setDone(int idx, boolean isDone) {
-        Task task = tasks.get(idx).setDone(isDone);
-        return task;
+        return tasks.get(idx).setDone(isDone);
     }
 
     /**
@@ -93,8 +92,19 @@ public class Tasklist {
      * @return The deleted task.
      */
     public Task remove(int idx) {
-        Task task = tasks.remove(idx);
-        return task;
+        return tasks.remove(idx);
+    }
+
+    /**
+     * Finds all tasks containing a string.
+     *
+     * @param searchString The string to find.
+     * @return A list of all matching tasks.
+     */
+    public List<Task> search(String searchString) {
+        return tasks.stream()
+                .filter(task -> task.descriptionHas(searchString))
+                .toList();
     }
 
     /**
@@ -102,14 +112,7 @@ public class Tasklist {
      */
     @Override
     public String toString() {
-        int size = tasks.size();
-        String[] labelled = new String[size];
-
-        for (int i = 0; i < size; i++) {
-            labelled[i] = String.format("%d. %s", i + 1, tasks.get(i));
-        }
-
-        return String.join("\n", labelled);
+        return listTasks(tasks);
     }
 
     /**
