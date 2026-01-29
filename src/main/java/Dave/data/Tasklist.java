@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import Dave.storage.DiskStore;
 
 /**
- * Represents a series of tasks
+ * Represents a series of tasks.
  *
  * @author JustATin555
  * @version 1.1
@@ -26,7 +26,7 @@ public class Tasklist {
     }
 
     /**
-     * Gets task stored at the given index
+     * Gets task stored at the given index.
      *
      * @param idx The index of the stored task.
      * @return The stored task.

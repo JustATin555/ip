@@ -45,7 +45,7 @@ public class ForgetfulDave {
     }
 
     /**
-     * Handle a single command
+     * Handles a single command.
      *
      * @param command The command to run.
      */
@@ -97,7 +97,7 @@ public class ForgetfulDave {
     }
 
     /**
-     * Runs a chatbot instance
+     * Runs a chatbot instance.
      */
     public void run() {
         printWelcome();
@@ -110,7 +110,7 @@ public class ForgetfulDave {
     }
 
     /**
-     * Sync stored data with current tasklist.
+     * Syncs stored data with current tasklist.
      */
     private void updateStore() {
         diskStore.overwrite(tasklist.forStorage());

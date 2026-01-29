@@ -114,7 +114,7 @@ public class DiskStore {
     }
 
     /**
-     * Appends a new task to the file
+     * Appends a new task to the file.
      *
      * @param task The new task.
      */
@@ -130,7 +130,7 @@ public class DiskStore {
     }
 
     /**
-     * Overwrite existing storage with a list of tasks
+     * Overwrite existing storage with a list of tasks.
      *
      * @param tasks The new tasks.
      */
@@ -158,7 +158,7 @@ class InvalidTaskParameterException extends Exception {
 }
 
 /**
- * Represents an empty task to be filtered out
+ * Represents an empty task to be filtered out.
  */
 class EmptyTask extends Task {
     /**

@@ -1,7 +1,7 @@
 package Dave.data;
 
 /**
- * Represents a singular task
+ * Represents a singular task.
  *
  * @author JustATin555
  * @version 1.0

@@ -5,7 +5,7 @@ import static Dave.commands.Parser.dateTimeOutputFormatter;
 import java.time.LocalDateTime;
 
 /**
- * Represents a task that needs to be done before a specific date or time
+ * Represents a task that needs to be done before a specific date or time.
  *
  * @author JustATin555
  * @version 1.1

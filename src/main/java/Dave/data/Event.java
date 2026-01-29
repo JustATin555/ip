@@ -5,7 +5,7 @@ import static Dave.commands.Parser.dateTimeOutputFormatter;
 import java.time.LocalDateTime;
 
 /**
- * Represents a task that starts at a specific date or time and ends at a specific date or time
+ * Represents a task that starts at a specific date or time and ends at a specific date or time.
  *
  * @author JustATin555
  * @version 1.1
