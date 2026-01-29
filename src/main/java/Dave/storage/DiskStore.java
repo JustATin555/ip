@@ -42,22 +42,34 @@ public class DiskStore {
      * @return A parsed task.
      */
     private static Task parseTask(String taskString) throws InvalidTaskParameterException {
-        if (taskString.isEmpty()) return new EmptyTask();
+        if (taskString.isEmpty()) {
+            return new EmptyTask();
+        }
+
         String[] params = taskString.split(" \\| ");
 
         Task task = switch (params[0]) {
             case "T" -> {
-                if (params.length != 3) throw new InvalidTaskParameterException();
+                if (params.length != 3) {
+                    throw new InvalidTaskParameterException();
+                }
+
                 yield new Todo(params[2]);
             }
             case "D" -> {
-                if (params.length != 4) throw new InvalidTaskParameterException();
+                if (params.length != 4) {
+                    throw new InvalidTaskParameterException();
+                }
+
                 yield new Deadline(
                         params[2],
                         LocalDateTime.parse(params[3]));
             }
             case "E" -> {
-                if (params.length != 5) throw new InvalidTaskParameterException();
+                if (params.length != 5) {
+                    throw new InvalidTaskParameterException();
+                }
+
                 yield new Event(
                         params[2],
                         LocalDateTime.parse(params[3]),
@@ -66,7 +78,9 @@ public class DiskStore {
             default -> throw new InvalidTaskParameterException();
         };
 
-        if (params[1].equals("1")) task.setDone(true);
+        if (params[1].equals("1")) {
+            task.setDone(true);
+        }
 
         return task;
     }
@@ -99,7 +113,9 @@ public class DiskStore {
                     for (String line : Files.readAllLines(filePath)) {
                         Task task = DiskStore.parseTask(line);
 
-                        if (!(task instanceof EmptyTask)) tasks.add(task);
+                        if (!(task instanceof EmptyTask)) {
+                            tasks.add(task);
+                        }
                     }
                 } catch (InvalidTaskParameterException exception) {
                     Files.deleteIfExists(filePath);
