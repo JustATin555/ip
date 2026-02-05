@@ -143,7 +143,7 @@ public class Parser {
         String[] splitArgs = input.split(" ");
 
         return switch (splitArgs[0]) {
-            case "bye" -> new ParsedCommand(CommandType.BYE, null);
+            case "bye" -> new ExitCommand();
             case "list" -> new ParsedCommand(CommandType.LIST, null);
             case "mark" -> parseIndex(input, CommandType.MARK);
             case "unmark" -> parseIndex(input, CommandType.UNMARK);

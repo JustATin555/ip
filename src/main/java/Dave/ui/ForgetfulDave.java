@@ -41,10 +41,6 @@ public class ForgetfulDave {
                 .run();
     }
 
-//    case BYE -> {
-//        prettyPrint("See you around!");
-//        System.exit(0);
-//    }
 //    case LIST -> prettyPrint(String.format("""
 //                    I only remember these tasks:
 //                    %s
