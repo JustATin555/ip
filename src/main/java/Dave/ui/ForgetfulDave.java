@@ -15,11 +15,11 @@ import static Dave.ui.Display.*;
  * Runs in the command line.
  *
  * @author JustATin555
- * @version 1.0
+ * @version 1.1
  */
 public class ForgetfulDave {
 
-    private final DiskStore diskStore;
+    private final DiskStore diskstore;
     private final Tasklist tasklist;
     private final Scanner scanner;
 
@@ -30,8 +30,8 @@ public class ForgetfulDave {
      */
     public ForgetfulDave(Path filePath) {
         scanner = new Scanner(System.in);
-        diskStore = new DiskStore(filePath);
-        tasklist = new Tasklist(diskStore.load());
+        diskstore = new DiskStore(filePath);
+        tasklist = new Tasklist(diskstore.load());
     }
 
     /**
@@ -48,56 +48,53 @@ public class ForgetfulDave {
      *
      * @param command The command to run.
      */
-    private void handle(ParsedCommand command) {
-        switch (command.identifier()) {
-        case INVALID -> prettyPrint(((InvalidCommand) command.args()).warning());
-        case BYE -> {
-            prettyPrint("See you around!");
-            System.exit(0);
-        }
-        case LIST -> prettyPrint(String.format("""
-                        I only remember these tasks:
-                        %s
-                        Might have forgotten some though...""",
-                tasklist));
-        case MARK -> {
-            Task task = tasklist.setDone(((TaskIndex) command.args()).idx(), true);
-            updateStore();
-            prettyPrint(String.format("Checked this task off:\n   %s", task));
-        }
-        case UNMARK -> {
-            Task task = tasklist.setDone(((TaskIndex) command.args()).idx(), false);
-            updateStore();
-            prettyPrint(String.format("Erased this checkmark:\n   %s", task));
-        }
-        case TODO -> {
-            Task task = tasklist.store(((TodoCommand) command.args()).description());
-            diskStore.save(task);
-            prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
-        }
-        case DEADLINE -> {
-            DeadlineCommand cmd = (DeadlineCommand) command.args();
-            Task task = tasklist.store(cmd.description(), cmd.deadline());
-            diskStore.save(task);
-            prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
-        }
-        case EVENT -> {
-            EventCommand cmd = (EventCommand) command.args();
-            Task task = tasklist.store(cmd.description(), cmd.start(), cmd.end());
-            diskStore.save(task);
-            prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
-        }
-        case DELETE -> {
-            Task task = tasklist.remove(((TaskIndex) command.args()).idx());
-            updateStore();
-            prettyPrint(String.format("I won't remember this task anymore:\n   %s", task));
-        }
-        case FIND -> {
-            prettyPrint(String.format(
-                    "Are you talking about these tasks?\n%s",
-                    listTasks(tasklist.search(((FindCommand) command.args()).searchString()))));
-        }
-        }
+    private void handle(Command command) {
+        command.execute(diskstore, tasklist);
+
+//        switch (command.identifier()) {
+//        case INVALID -> prettyPrint(((InvalidCommand) command.args()).warning());
+//        case BYE -> {
+//            prettyPrint("See you around!");
+//            System.exit(0);
+//        }
+//        case LIST -> prettyPrint(String.format("""
+//                        I only remember these tasks:
+//                        %s
+//                        Might have forgotten some though...""",
+//                tasklist));
+//        case MARK -> {
+//            Task task = tasklist.setDone(((TaskIndex) command.args()).idx(), true);
+//            updateStore();
+//            prettyPrint(String.format("Checked this task off:\n   %s", task));
+//        }
+//        case UNMARK -> {
+//            Task task = tasklist.setDone(((TaskIndex) command.args()).idx(), false);
+//            updateStore();
+//            prettyPrint(String.format("Erased this checkmark:\n   %s", task));
+//        }
+//        case DEADLINE -> {
+//            DeadlineCommand cmd = (DeadlineCommand) command.args();
+//            Task task = tasklist.store(cmd.description(), cmd.deadline());
+//            diskStore.save(task);
+//            prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
+//        }
+//        case EVENT -> {
+//            EventCommand cmd = (EventCommand) command.args();
+//            Task task = tasklist.store(cmd.description(), cmd.start(), cmd.end());
+//            diskStore.save(task);
+//            prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
+//        }
+//        case DELETE -> {
+//            Task task = tasklist.remove(((TaskIndex) command.args()).idx());
+//            updateStore();
+//            prettyPrint(String.format("I won't remember this task anymore:\n   %s", task));
+//        }
+//        case FIND -> {
+//            prettyPrint(String.format(
+//                    "Are you talking about these tasks?\n%s",
+//                    listTasks(tasklist.search(((FindCommand) command.args()).searchString()))));
+//        }
+//        }
     }
 
     /**
