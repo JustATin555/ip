@@ -83,9 +83,7 @@ public class Parser {
         try {
             return new DeadlineCommand(
                     splitArgs[0],
-                    LocalDateTime.parse(
-                            splitArgs[1].substring(3),
-                            DATE_TIME_INPUT_FORMATTER));
+                    LocalDateTime.parse(splitArgs[1].substring(3), DATE_TIME_INPUT_FORMATTER));
         } catch (DateTimeParseException exception) {
             return new InvalidCommand(String.format(
                     "Hmmm, I don't know when \"%s\" refers to.",
@@ -99,26 +97,24 @@ public class Parser {
      * @param input A string representing an event command.
      * @return An event command, or an invalid command.
      */
-    private static ParsedCommand parseEvent(String input) {
+    private static Command parseEvent(String input) {
         if (input.length() < 6) {
-            return createInvalid("Got it, there's no event on.");
+            return new InvalidCommand("Got it, there's no event on.");
         }
 
         String[] splitArgs = input.substring(6).split(" /");
 
         if (splitArgs.length != 3 || !splitArgs[1].startsWith("from") || !splitArgs[2].startsWith("to")) {
-            return createInvalid("Hmmm, that doesn't seem like an event.");
+            return new InvalidCommand("Hmmm, that doesn't seem like an event.");
         }
 
         try {
-            return new ParsedCommand(
-                    CommandType.EVENT,
-                    new EventCommand(
-                            splitArgs[0],
-                            LocalDateTime.parse(splitArgs[1].substring(5), DATE_TIME_INPUT_FORMATTER),
-                            LocalDateTime.parse(splitArgs[2].substring(3), DATE_TIME_INPUT_FORMATTER)));
+            return new EventCommand(
+                    splitArgs[0],
+                    LocalDateTime.parse(splitArgs[1].substring(5), DATE_TIME_INPUT_FORMATTER),
+                    LocalDateTime.parse(splitArgs[2].substring(3), DATE_TIME_INPUT_FORMATTER));
         } catch (DateTimeParseException exception) {
-            return createInvalid(
+            return new InvalidCommand(
                     String.format(
                             "Hmmm, I don't know when \"%s\" refers to.",
                             exception.getParsedString()));

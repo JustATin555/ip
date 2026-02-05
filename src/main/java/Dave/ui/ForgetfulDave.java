@@ -60,12 +60,6 @@ public class ForgetfulDave {
 //        updateStore();
 //        prettyPrint(String.format("Erased this checkmark:\n   %s", task));
 //    }
-//    case EVENT -> {
-//        EventCommand cmd = (EventCommand) command.args();
-//        Task task = tasklist.store(cmd.description(), cmd.start(), cmd.end());
-//        diskStore.save(task);
-//        prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
-//    }
 //    case DELETE -> {
 //        Task task = tasklist.remove(((TaskIndex) command.args()).idx());
 //        updateStore();
