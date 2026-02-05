@@ -15,37 +15,37 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /** A formatter for datetime inputted via CLI */
-    public static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /** A formatter for datetime outputted by chatbot */
-    public static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd, yyyy @ HH:mm");
-
-    private static ParsedCommand createInvalid(String warning) {
-        return new ParsedCommand(
-                CommandType.INVALID,
-                new InvalidCommand(warning));
-    }
+    public static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd, yyyy @ HH:mm");
 
     /**
      * Parses a command that expects a task index as output.
      *
-     * @param input      A string representing a mark/unmark/delete command.
-     * @param identifier Which command it is.
+     * @param input A string representing a mark/unmark/delete command.
+     * @param cmd   Which command it is.
      * @return A task index, or an invalid command.
      */
-    private static ParsedCommand parseIndex(String input, CommandType identifier) {
+    private static Command parseIndex(String input, IndexCommand cmd) {
         try {
             String[] splitArgs = input.split(" ");
 
             if (splitArgs.length < 2) {
-                return createInvalid("Hmmm, I don't know which index you're talking about.");
+                return new InvalidCommand("Hmmm, I don't know which index you're talking about.");
             }
 
-            return new ParsedCommand(
-                    identifier,
-                    new TaskIndex(parseInt(splitArgs[1]) - 1));
+            int idx = parseInt(splitArgs[1]) - 1;
+
+            return switch (cmd) {
+                case MARK -> new MarkCommand(idx);
+                case UNMARK -> new UnmarkCommand(idx);
+                case DELETE -> new DeleteCommand(idx);
+            };
         } catch (NumberFormatException exception) {
-            return createInvalid(String.format(
+            return new InvalidCommand(String.format(
                     "Hmmm, I don't know which index \"%s\" refers to.",
                     exception.getMessage()));
         }
@@ -144,17 +144,24 @@ public class Parser {
 
         return switch (splitArgs[0]) {
             case "bye" -> new ExitCommand();
-            case "list" -> new ParsedCommand(CommandType.LIST, null);
-            case "mark" -> parseIndex(input, CommandType.MARK);
-            case "unmark" -> parseIndex(input, CommandType.UNMARK);
+            case "list" -> new ListCommand();
+            case "mark" -> parseIndex(input, IndexCommand.MARK);
+            case "unmark" -> parseIndex(input, IndexCommand.UNMARK);
             case "todo" -> parseTodo(input);
             case "deadline" -> parseDeadline(input);
             case "event" -> parseEvent(input);
-            case "delete" -> parseIndex(input, CommandType.DELETE);
+            case "delete" -> parseIndex(input, IndexCommand.DELETE);
             case "find" -> parseFind(input);
             default -> new InvalidCommand("""
                     Did you forget to start with a command?
                     Don't worry, we all get forgetful sometimes.""");
         };
+    }
+
+    /** Represents commands that accept a single index */
+    private enum IndexCommand {
+        MARK,
+        UNMARK,
+        DELETE
     }
 }

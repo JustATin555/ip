@@ -40,27 +40,7 @@ public class ForgetfulDave {
                 Path.of("tasks.txt"))
                 .run();
     }
-
-//    case LIST -> prettyPrint(String.format("""
-//                    I only remember these tasks:
-//                    %s
-//                    Might have forgotten some though...""",
-//            tasklist));
-//    case MARK -> {
-//        Task task = tasklist.setDone(((TaskIndex) command.args()).idx(), true);
-//        updateStore();
-//        prettyPrint(String.format("Checked this task off:\n   %s", task));
-//    }
-//    case UNMARK -> {
-//        Task task = tasklist.setDone(((TaskIndex) command.args()).idx(), false);
-//        updateStore();
-//        prettyPrint(String.format("Erased this checkmark:\n   %s", task));
-//    }
-//    case DELETE -> {
-//        Task task = tasklist.remove(((TaskIndex) command.args()).idx());
-//        updateStore();
-//        prettyPrint(String.format("I won't remember this task anymore:\n   %s", task));
-//    }
+    
 //    case FIND -> {
 //        prettyPrint(String.format(
 //                "Are you talking about these tasks?\n%s",
