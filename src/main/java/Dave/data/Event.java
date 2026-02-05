@@ -1,8 +1,8 @@
 package Dave.data;
 
-import static Dave.commands.Parser.dateTimeOutputFormatter;
-
 import java.time.LocalDateTime;
+
+import static Dave.commands.Parser.DATE_TIME_OUTPUT_FORMATTER;
 
 /**
  * Represents a task that starts at a specific date or time and ends at a specific date or time.
@@ -34,8 +34,8 @@ public class Event extends Task {
         return String.format("[E][%s] %s (from: %s | to: %s)",
                 isDone ? "X" : " ",
                 description,
-                start.format(dateTimeOutputFormatter),
-                end.format(dateTimeOutputFormatter));
+                start.format(DATE_TIME_OUTPUT_FORMATTER),
+                end.format(DATE_TIME_OUTPUT_FORMATTER));
     }
 
     @Override

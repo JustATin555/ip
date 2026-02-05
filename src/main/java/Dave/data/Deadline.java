@@ -1,8 +1,8 @@
 package Dave.data;
 
-import static Dave.commands.Parser.dateTimeOutputFormatter;
-
 import java.time.LocalDateTime;
+
+import static Dave.commands.Parser.DATE_TIME_OUTPUT_FORMATTER;
 
 /**
  * Represents a task that needs to be done before a specific date or time.
@@ -30,7 +30,7 @@ public class Deadline extends Task {
         return String.format("[D][%s] %s (by: %s)",
                 isDone ? "X" : " ",
                 description,
-                deadline.format(dateTimeOutputFormatter));
+                deadline.format(DATE_TIME_OUTPUT_FORMATTER));
     }
 
     @Override

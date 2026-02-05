@@ -1,11 +1,11 @@
 package Dave.ui;
 
+import java.util.List;
+import java.util.Scanner;
+
 import Dave.commands.Command;
 import Dave.commands.Parser;
 import Dave.data.Task;
-
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * A collection of various UI helpers.
@@ -15,9 +15,7 @@ import java.util.Scanner;
  */
 public class CommandLineInterface extends Ui {
 
-    /**
-     * 3D-ASCII Art generated with https://patorjk.com/software/taag/
-     */
+    /** 3D-ASCII Art generated with https://patorjk.com/software/taag/ */
     private static final String DAVE_LOGO = """
              ________  ________  ___      ___ _______
             |\\   ___ \\|\\   __  \\|\\  \\    /  /|\\  ___ \\
@@ -28,9 +26,7 @@ public class CommandLineInterface extends Ui {
                 \\|_______|\\|__|\\|__|\\|__|/       \\|_______|
             """;
 
-    /**
-     * A command line scanner used to read commands
-     */
+    /** A command line scanner used to read commands */
     private final Scanner scanner = new Scanner(System.in);
 
     /**

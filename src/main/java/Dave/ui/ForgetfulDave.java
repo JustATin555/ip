@@ -41,7 +41,6 @@ public class ForgetfulDave {
                 .run();
     }
 
-//    case INVALID -> prettyPrint(((InvalidCommand) command.args()).warning());
 //    case BYE -> {
 //        prettyPrint("See you around!");
 //        System.exit(0);

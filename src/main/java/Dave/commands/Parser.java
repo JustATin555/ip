@@ -15,10 +15,10 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     /** A formatter for datetime inputted via CLI */
-    public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    public static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /** A formatter for datetime outputted by chatbot */
-    public static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy @ HH:mm");
+    public static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd, yyyy @ HH:mm");
 
     private static ParsedCommand createInvalid(String warning) {
         return new ParsedCommand(
@@ -57,10 +57,10 @@ public class Parser {
      * @param input A string representing a todo command.
      * @return A todo command, or an invalid command.
      */
-    private static ParsedCommand parseTodo(String input) {
+    private static Command parseTodo(String input) {
         return input.length() < 5
-                ? createInvalid("Got it, nothing todo.")
-                : new ParsedCommand(CommandType.TODO, new TodoCommand(input.substring(5)));
+                ? new InvalidCommand("Got it, nothing todo.")
+                : new TodoCommand(input.substring(5));
     }
 
     /**
@@ -87,7 +87,7 @@ public class Parser {
                             splitArgs[0],
                             LocalDateTime.parse(
                                     splitArgs[1].substring(3),
-                                    dateTimeInputFormatter)));
+                                    DATE_TIME_INPUT_FORMATTER)));
         } catch (DateTimeParseException exception) {
             return createInvalid(String.format(
                     "Hmmm, I don't know when \"%s\" refers to.",
@@ -117,8 +117,8 @@ public class Parser {
                     CommandType.EVENT,
                     new EventCommand(
                             splitArgs[0],
-                            LocalDateTime.parse(splitArgs[1].substring(5), dateTimeInputFormatter),
-                            LocalDateTime.parse(splitArgs[2].substring(3), dateTimeInputFormatter)));
+                            LocalDateTime.parse(splitArgs[1].substring(5), DATE_TIME_INPUT_FORMATTER),
+                            LocalDateTime.parse(splitArgs[2].substring(3), DATE_TIME_INPUT_FORMATTER)));
         } catch (DateTimeParseException exception) {
             return createInvalid(
                     String.format(
@@ -145,22 +145,22 @@ public class Parser {
      * @param input A string representing a command.
      * @return A valid or invalid command.
      */
-    public static ParsedCommand parseCommand(String input) {
+    public static Command parseCommand(String input) {
         String[] splitArgs = input.split(" ");
 
         return switch (splitArgs[0]) {
-        case "bye" -> new ParsedCommand(CommandType.BYE, null);
-        case "list" -> new ParsedCommand(CommandType.LIST, null);
-        case "mark" -> parseIndex(input, CommandType.MARK);
-        case "unmark" -> parseIndex(input, CommandType.UNMARK);
-        case "todo" -> parseTodo(input);
-        case "deadline" -> parseDeadline(input);
-        case "event" -> parseEvent(input);
-        case "delete" -> parseIndex(input, CommandType.DELETE);
-        case "find" -> parseFind(input);
-        default -> createInvalid("""
-                Did you forget to start with a command?
-                Don't worry, we all get forgetful sometimes.""");
+            case "bye" -> new ParsedCommand(CommandType.BYE, null);
+            case "list" -> new ParsedCommand(CommandType.LIST, null);
+            case "mark" -> parseIndex(input, CommandType.MARK);
+            case "unmark" -> parseIndex(input, CommandType.UNMARK);
+            case "todo" -> parseTodo(input);
+            case "deadline" -> parseDeadline(input);
+            case "event" -> parseEvent(input);
+            case "delete" -> parseIndex(input, CommandType.DELETE);
+            case "find" -> parseFind(input);
+            default -> new InvalidCommand("""
+                    Did you forget to start with a command?
+                    Don't worry, we all get forgetful sometimes.""");
         };
     }
 }
