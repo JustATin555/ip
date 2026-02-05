@@ -2,14 +2,37 @@ package Dave.commands;
 
 import java.time.LocalDateTime;
 
+import Dave.data.Task;
+import Dave.data.Tasklist;
+import Dave.storage.DiskStore;
+import Dave.ui.Ui;
+
 /**
  * Represents a command that creates a deadline.
  *
- * @param description A string describing the task.
- * @param deadline    A datetime specifying the deadline.
+ * @author JustATin555
+ * @version 1.1
  */
-public record DeadlineCommand(
-        String description,
-        LocalDateTime deadline
-) {
+public class DeadlineCommand extends Command {
+
+    private final String description;
+    private final LocalDateTime deadline;
+
+    /**
+     * Constructs a newly parsed deadline command.
+     *
+     * @param description A string describing the task.
+     * @param deadline    A datetime specifying the deadline.
+     */
+    public DeadlineCommand(String description, LocalDateTime deadline) {
+        this.description = description;
+        this.deadline = deadline;
+    }
+
+    @Override
+    public void execute(Ui ui, DiskStore ds, Tasklist tl) {
+        Task task = tl.store(description, deadline);
+        ds.save(task);
+        ui.display(String.format("Alright, we'll both try to remember this task:\n   %s", task));
+    }
 }

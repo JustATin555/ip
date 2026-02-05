@@ -69,27 +69,25 @@ public class Parser {
      * @param input A string representing a deadline command.
      * @return A deadline command, or an invalid command.
      */
-    private static ParsedCommand parseDeadline(String input) {
+    private static Command parseDeadline(String input) {
         if (input.length() < 9) {
-            return createInvalid("Got it, no deadline to remember.");
+            return new InvalidCommand("Got it, no deadline to remember.");
         }
 
         String[] splitArgs = input.substring(9).split(" /");
 
         if (splitArgs.length != 2 || !splitArgs[1].startsWith("by")) {
-            return createInvalid("Hmmm, that doesn't seem like a deadline.");
+            return new InvalidCommand("Hmmm, that doesn't seem like a deadline.");
         }
 
         try {
-            return new ParsedCommand(
-                    CommandType.DEADLINE,
-                    new DeadlineCommand(
-                            splitArgs[0],
-                            LocalDateTime.parse(
-                                    splitArgs[1].substring(3),
-                                    DATE_TIME_INPUT_FORMATTER)));
+            return new DeadlineCommand(
+                    splitArgs[0],
+                    LocalDateTime.parse(
+                            splitArgs[1].substring(3),
+                            DATE_TIME_INPUT_FORMATTER));
         } catch (DateTimeParseException exception) {
-            return createInvalid(String.format(
+            return new InvalidCommand(String.format(
                     "Hmmm, I don't know when \"%s\" refers to.",
                     exception.getParsedString()));
         }
