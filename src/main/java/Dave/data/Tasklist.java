@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Dave.ui.Display.listTasks;
+import static Dave.ui.CommandLineInterface.listTasks;
 
 /**
  * Represents a series of tasks.

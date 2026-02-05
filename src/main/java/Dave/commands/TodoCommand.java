@@ -3,8 +3,7 @@ package Dave.commands;
 import Dave.data.Task;
 import Dave.data.Tasklist;
 import Dave.storage.DiskStore;
-
-import static Dave.ui.Display.prettyPrint;
+import Dave.ui.Ui;
 
 /**
  * Represents a command that creates a todo.
@@ -26,9 +25,9 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(DiskStore ds, Tasklist tl) {
+    public void execute(Ui ui, DiskStore ds, Tasklist tl) {
         Task task = tl.store(description);
         ds.save(task);
-        prettyPrint(String.format("Alright, we'll both try to remember this task:\n   %s", task));
+        ui.display(String.format("Alright, we'll both try to remember this task:\n   %s", task));
     }
 }
