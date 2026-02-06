@@ -26,6 +26,12 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(Ui ui, DiskStore ds, Tasklist tl) {
+        int size = tl.getSize();
+        if (index >= size) {
+            ui.display(String.format("Hmmm, I only remember %d tasks. Which one did you mean?", size));
+            return;
+        }
+
         Task task = tl.setDone(index, true);
         ds.overwrite(tl.getTasks());
         ui.display(String.format("Checked this task off:\n   %s", task));

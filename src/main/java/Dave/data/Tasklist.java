@@ -112,4 +112,11 @@ public class Tasklist {
                 .filter(task -> task.descriptionHas(searchString))
                 .toList();
     }
+
+    /**
+     * Returns the number of tasks in the list.
+     */
+    public int getSize() {
+        return tasks.size();
+    }
 }
