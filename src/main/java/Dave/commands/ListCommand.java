@@ -13,9 +13,6 @@ import Dave.ui.Ui;
 public class ListCommand extends Command {
     @Override
     public void execute(Ui ui, DiskStore ds, Tasklist tl) {
-        ui.display(String.format("""
-                I only remember these tasks:
-                %s
-                Might have forgotten some though...""", tl));
+        ui.display("I can only remember these tasks:", tl.getTasks());
     }
 }

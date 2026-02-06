@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Dave.ui.CommandLineInterface.listTasks;
-
 /**
  * Represents a series of tasks.
  *
@@ -96,29 +94,22 @@ public class Tasklist {
     }
 
     /**
-     * Finds all tasks containing a string.
+     * Returns all store tasks.
+     * Provides the tasks as a List.
+     */
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
+     * Finds all tasks containing a given string.
      *
      * @param searchString The string to find.
      * @return A list of all matching tasks.
      */
-    public List<Task> search(String searchString) {
+    public List<Task> getTasks(String searchString) {
         return tasks.stream()
                 .filter(task -> task.descriptionHas(searchString))
                 .toList();
-    }
-
-    /**
-     * Provides a string representation of all stored tasks.
-     */
-    @Override
-    public String toString() {
-        return listTasks(tasks);
-    }
-
-    /**
-     * Provides an array list for storage.
-     */
-    public ArrayList<Task> forStorage() {
-        return tasks;
     }
 }

@@ -40,12 +40,6 @@ public class ForgetfulDave {
                 Path.of("tasks.txt"))
                 .run();
     }
-    
-//    case FIND -> {
-//        prettyPrint(String.format(
-//                "Are you talking about these tasks?\n%s",
-//                listTasks(tasklist.search(((FindCommand) command.args()).searchString()))));
-//    }
 
     /**
      * Runs a chatbot instance.
@@ -56,12 +50,5 @@ public class ForgetfulDave {
         while (true) {
             ui.getNextCommand().execute(ui, diskstore, tasklist);
         }
-    }
-
-    /**
-     * Syncs stored data with current tasklist.
-     */
-    private void updateStore() {
-        diskstore.overwrite(tasklist.forStorage());
     }
 }

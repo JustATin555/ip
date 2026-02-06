@@ -127,10 +127,10 @@ public class Parser {
      * @param input A string representing a find command.
      * @return A find command, or an invalid command.
      */
-    private static ParsedCommand parseFind(String input) {
+    private static Command parseFind(String input) {
         return input.length() < 5
-                ? createInvalid("Got it, nothing to find.")
-                : new ParsedCommand(CommandType.FIND, new FindCommand(input.substring(5)));
+                ? new InvalidCommand("Got it, nothing to find.")
+                : new FindCommand(input.substring(5));
     }
 
     /**

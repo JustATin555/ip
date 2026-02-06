@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import Dave.data.Deadline;
 import Dave.data.Event;
@@ -150,7 +151,7 @@ public class DiskStore {
      *
      * @param tasks The new tasks.
      */
-    public void overwrite(ArrayList<Task> tasks) {
+    public void overwrite(List<Task> tasks) {
         try {
             Files.deleteIfExists(filePath);
             Files.writeString(

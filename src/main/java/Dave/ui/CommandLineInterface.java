@@ -29,24 +29,6 @@ public class CommandLineInterface extends Ui {
     /** A command line scanner used to read commands */
     private final Scanner scanner = new Scanner(System.in);
 
-    /**
-     * Combines a list of tasks into a single string.
-     *
-     * @param tasks A list of tasks.
-     * @return A string containing the tasks in order.
-     */
-    public static String listTasks(List<Task> tasks) {
-        int size = tasks.size();
-
-        String[] labelled = new String[size];
-
-        for (int i = 0; i < size; i++) {
-            labelled[i] = String.format("%d. %s", i + 1, tasks.get(i));
-        }
-
-        return String.join("\n", labelled);
-    }
-
     @Override
     public void start() {
         // Show logo at startup
@@ -65,6 +47,19 @@ public class CommandLineInterface extends Ui {
         System.out.println("____________________________________________________________");
         System.out.println(msg);
         System.out.println("____________________________________________________________");
+    }
+
+    @Override
+    public void display(String message, List<Task> tasks) {
+        int size = tasks.size();
+
+        String[] labelled = new String[size];
+
+        for (int i = 0; i < size; i++) {
+            labelled[i] = String.format("%d. %s", i + 1, tasks.get(i));
+        }
+
+        this.display(String.format("%s\n%s", message, String.join("\n", labelled)));
     }
 
     @Override

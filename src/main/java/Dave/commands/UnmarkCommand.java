@@ -27,7 +27,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(Ui ui, DiskStore ds, Tasklist tl) {
         Task task = tl.setDone(index, false);
-        ds.overwrite(tl.forStorage());
+        ds.overwrite(tl.getTasks());
         ui.display(String.format("Erased this checkmark:\n   %s", task));
     }
 }
