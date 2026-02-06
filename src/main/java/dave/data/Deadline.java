@@ -1,8 +1,8 @@
 package dave.data;
 
-import java.time.LocalDateTime;
-
 import static dave.commands.Parser.DATE_TIME_OUTPUT_FORMATTER;
+
+import java.time.LocalDateTime;
 
 /**
  * Represents a task that needs to be done before a specific date or time.
