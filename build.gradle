@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("Dave.ui.ForgetfulDave")
+    mainClass.set("Dave.ui.Launcher")
 }
 
 shadowJar {

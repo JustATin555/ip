@@ -11,19 +11,19 @@ import dave.data.Task;
  * @author JustATin555
  * @version 1.0
  */
-public abstract class Ui {
+public interface Ui {
 
     /**
      * Starts the interface.
      */
-    public abstract void start();
+    void start();
 
     /**
      * Displays an arbitrary message.
      *
      * @param message The message to display.
      */
-    public abstract void display(String message);
+    void display(String message);
 
 
     /**
@@ -32,12 +32,12 @@ public abstract class Ui {
      * @param message The message to display.
      * @param tasks   A list of tasks to display.
      */
-    public abstract void display(String message, List<Task> tasks);
+    void display(String message, List<Task> tasks);
 
     /**
      * Waits for the next command inputted into the interface.
      *
      * @return The next command.
      */
-    public abstract Command getNextCommand();
+    Command getNextCommand();
 }

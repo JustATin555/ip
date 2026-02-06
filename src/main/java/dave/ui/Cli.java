@@ -13,7 +13,7 @@ import dave.data.Task;
  * @author JustATin555
  * @version 1.0
  */
-public class CommandLineInterface extends Ui {
+public class Cli implements Ui {
 
     /** 3D-ASCII Art generated with https://patorjk.com/software/taag/ */
     private static final String DAVE_LOGO = """

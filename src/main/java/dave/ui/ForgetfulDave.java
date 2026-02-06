@@ -36,7 +36,7 @@ public class ForgetfulDave {
      */
     public static void main(String[] args) {
         new ForgetfulDave(
-                new CommandLineInterface(),
+                new Cli(),
                 Path.of("tasks.txt"))
                 .run();
     }
