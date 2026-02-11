@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("Dave.ui.Launcher")
+    mainClass.set("dave.ui.Launcher")
 }
 
 shadowJar {
