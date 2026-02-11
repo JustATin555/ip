@@ -2,6 +2,7 @@ package dave.data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -112,6 +113,20 @@ public class Tasklist {
     public List<Task> getTasks(String searchString) {
         return tasks.stream()
                 .filter(task -> task.descriptionHas(searchString))
+                .toList();
+    }
+
+    /**
+     * Finds all tasks with nearby deadlines / starting soon.
+     *
+     * @return A list of all matching tasks.
+     */
+    public List<Task> getReminders() {
+        LocalDateTime now = LocalDateTime.now();
+
+        return tasks.stream()
+                .filter(task -> task instanceof Timeable && ((Timeable) task).getTime().isAfter(now))
+                .sorted(Comparator.comparing(task -> ((Timeable) task).getTime()))
                 .toList();
     }
 

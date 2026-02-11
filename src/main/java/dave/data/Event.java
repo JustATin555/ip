@@ -1,16 +1,16 @@
 package dave.data;
 
-import java.time.LocalDateTime;
-
 import static dave.commands.Parser.DATE_TIME_OUTPUT_FORMATTER;
+
+import java.time.LocalDateTime;
 
 /**
  * Represents a task that starts at a specific date or time and ends at a specific date or time.
  *
  * @author JustATin555
- * @version 1.1
+ * @version 1.2
  */
-public class Event extends Task {
+public class Event extends Task implements Timeable {
 
     /** When the task starts */
     private final LocalDateTime start;
@@ -45,5 +45,10 @@ public class Event extends Task {
                 description,
                 start,
                 end);
+    }
+
+    @Override
+    public LocalDateTime getTime() {
+        return start;
     }
 }

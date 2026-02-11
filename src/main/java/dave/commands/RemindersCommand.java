@@ -8,21 +8,21 @@ import dave.storage.DiskStore;
 import dave.ui.Ui;
 
 /**
- * Represents a command that lists tasks.
+ * Represents a command that lists reminders.
  *
  * @author JustATin555
  * @version 1.0
  */
-public class ListCommand extends Command {
+public class RemindersCommand extends Command {
     @Override
     public void execute(Ui ui, DiskStore ds, Tasklist tl) {
-        List<Task> tasks = tl.getTasks();
+        List<Task> tasks = tl.getReminders();
 
         if (tasks.isEmpty()) {
-            ui.display("I don't remember any tasks");
+            ui.display("You have no upcoming tasks");
             return;
         }
 
-        ui.display("I can only remember these tasks:", tasks);
+        ui.display("You have these upcoming tasks:", tasks);
     }
 }

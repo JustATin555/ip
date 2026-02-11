@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
  * Represents a task that needs to be done before a specific date or time.
  *
  * @author JustATin555
- * @version 1.1
+ * @version 1.2
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements Timeable {
 
     /** The task's deadline */
     private final LocalDateTime deadline;
@@ -39,5 +39,10 @@ public class Deadline extends Task {
                 isDone ? "1" : "0",
                 description,
                 deadline);
+    }
+
+    @Override
+    public LocalDateTime getTime() {
+        return deadline;
     }
 }

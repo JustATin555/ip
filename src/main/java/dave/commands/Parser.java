@@ -152,6 +152,7 @@ public class Parser {
         return switch (splitArgs[0]) {
             case "bye" -> new ExitCommand();
             case "list" -> new ListCommand();
+            case "reminders" -> new RemindersCommand();
             case "mark" -> parseIndex(input, IndexCommand.MARK);
             case "unmark" -> parseIndex(input, IndexCommand.UNMARK);
             case "todo" -> parseTodo(input);
