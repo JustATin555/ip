@@ -26,12 +26,14 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(Ui ui, DiskStore ds, Tasklist tl) {
+        // Guard against invalid index
         int size = tl.getSize();
-        if (index >= size) {
+        if (index < 0 || index >= size) {
             ui.display(String.format("Hmmm, I only remember %d tasks. Which one did you mean?", size));
             return;
         }
 
+        // Mark task as not done
         Task task = tl.setDone(index, false);
         ds.overwrite(tl.getTasks());
         ui.display(String.format("Erased this checkmark:\n   %s", task));

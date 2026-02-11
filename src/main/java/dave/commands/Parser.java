@@ -30,25 +30,26 @@ public class Parser {
      * @return A task index, or an invalid command.
      */
     private static Command parseIndex(String input, IndexCommand cmd) {
+        String[] splitArgs = input.split(" ");
+
+        if (splitArgs.length < 2) {
+            return new InvalidCommand("Hmmm, I don't know which index you're talking about.");
+        }
+
+        int idx;
         try {
-            String[] splitArgs = input.split(" ");
-
-            if (splitArgs.length < 2) {
-                return new InvalidCommand("Hmmm, I don't know which index you're talking about.");
-            }
-
-            int idx = parseInt(splitArgs[1]) - 1;
-
-            return switch (cmd) {
-                case MARK -> new MarkCommand(idx);
-                case UNMARK -> new UnmarkCommand(idx);
-                case DELETE -> new DeleteCommand(idx);
-            };
+            idx = parseInt(splitArgs[1]) - 1;
         } catch (NumberFormatException exception) {
             return new InvalidCommand(String.format(
                     "Hmmm, I don't know which index \"%s\" refers to.",
                     exception.getMessage()));
         }
+
+        return switch (cmd) {
+            case MARK -> new MarkCommand(idx);
+            case UNMARK -> new UnmarkCommand(idx);
+            case DELETE -> new DeleteCommand(idx);
+        };
     }
 
     /**
@@ -80,15 +81,18 @@ public class Parser {
             return new InvalidCommand("Hmmm, that doesn't seem like a deadline.");
         }
 
+        LocalDateTime deadline;
         try {
-            return new DeadlineCommand(
-                    splitArgs[0],
-                    LocalDateTime.parse(splitArgs[1].substring(3), DATE_TIME_INPUT_FORMATTER));
+            deadline = LocalDateTime.parse(
+                    splitArgs[1].substring(3),
+                    DATE_TIME_INPUT_FORMATTER);
         } catch (DateTimeParseException exception) {
             return new InvalidCommand(String.format(
                     "Hmmm, I don't know when \"%s\" refers to.",
                     exception.getParsedString()));
         }
+
+        return new DeadlineCommand(splitArgs[0], deadline);
     }
 
     /**
@@ -104,21 +108,24 @@ public class Parser {
 
         String[] splitArgs = input.substring(6).split(" /");
 
-        if (splitArgs.length != 3 || !splitArgs[1].startsWith("from") || !splitArgs[2].startsWith("to")) {
+        if (splitArgs.length != 3
+                || !splitArgs[1].startsWith("from")
+                || !splitArgs[2].startsWith("to")) {
             return new InvalidCommand("Hmmm, that doesn't seem like an event.");
         }
 
+        LocalDateTime start;
+        LocalDateTime end;
         try {
-            return new EventCommand(
-                    splitArgs[0],
-                    LocalDateTime.parse(splitArgs[1].substring(5), DATE_TIME_INPUT_FORMATTER),
-                    LocalDateTime.parse(splitArgs[2].substring(3), DATE_TIME_INPUT_FORMATTER));
+            start = LocalDateTime.parse(splitArgs[1].substring(5), DATE_TIME_INPUT_FORMATTER);
+            end = LocalDateTime.parse(splitArgs[2].substring(3), DATE_TIME_INPUT_FORMATTER);
         } catch (DateTimeParseException exception) {
-            return new InvalidCommand(
-                    String.format(
-                            "Hmmm, I don't know when \"%s\" refers to.",
-                            exception.getParsedString()));
+            return new InvalidCommand(String.format(
+                    "Hmmm, I don't know when \"%s\" refers to.",
+                    exception.getParsedString()));
         }
+
+        return new EventCommand(splitArgs[0], start, end);
     }
 
     /**
