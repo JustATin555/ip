@@ -147,7 +147,7 @@ public class DiskStore {
     }
 
     /**
-     * Overwrite existing storage with a list of tasks.
+     * Overwrites existing storage with a list of tasks.
      *
      * @param tasks The new tasks.
      */

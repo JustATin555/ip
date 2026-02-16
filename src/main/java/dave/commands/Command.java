@@ -13,7 +13,7 @@ import dave.ui.Ui;
 public abstract class Command {
 
     /**
-     * Execute the stored command.
+     * Executes the stored command.
      *
      * @param ui        A user interface for command input and response output.
      * @param diskstore A storage handler handling task persistence.
