@@ -60,16 +60,16 @@ Format: `list`
 This will display a list of all your tasks, including todos, deadlines and events, along with their status (done or not
 done).
 
-## Marking tasks as done
+## Marking task completion status
 
-To mark a task as done, use the `done` command.
+To mark a task as done, use the `mark` command. Similarly, use the `unmark` command to mark a task as not done.
 
-Format: `done [task number]`
+Format: `mark [task number]` | `unmark [task number]`
 
-Example: `done 2`
+Example: `mark 2` | `unmark 2`
 
-This will mark the task with the specified task number as done. You can find the task number by using the `list`
-command.
+This will mark the task with the specified task number as done / not done. You can find the task number by using the
+`list` command.
 
 ## Deleting tasks
 
